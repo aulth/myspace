@@ -6,7 +6,8 @@ import Search from '../components/Search'
 export default function Home({allItems, msg}) {
 
   return (
-    <div>
+    <>
+    <div className='home-page min-h-screen'>
       <Head>
         <title>MySpace</title>
         <meta name="description" content="Initial" />
@@ -21,6 +22,7 @@ export default function Home({allItems, msg}) {
 
      
     </div>
+    </>
   )
 }
 export async function getServerSideProps(context) {

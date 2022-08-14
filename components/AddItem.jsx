@@ -1,14 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Swal from 'sweetalert2'
 import Navbar from './Navbar'
+import ShortUniqueId from 'short-unique-id'
 import { useRouter } from 'next/router'
 const AddItem = () => {
+    const uid = new ShortUniqueId({ length: 5 })
     const router = useRouter()
-    const [item, setItem] = useState({ title: '', location: '', nearbyplace: '', rent: '', category: '1 BHK', furnished: 'false', electricityincluded: 'false', ac: 'false', floor: '1', photo: [] })
+    const [item, setItem] = useState({ title: '', location: '', url: '', nearbyplace: '', rent: '', category: '1 BHK', furnished: 'false', electricityincluded: 'false', ac: 'false', floor: '1', photo: [], authtoken:'' })
     let image = []
+    useEffect(() => {
+      if(typeof window!=='undefined' && localStorage.getItem('ms-authtoken')){
+        setItem({...item, authtoken:localStorage.getItem('ms-authtoken')})
+      }
+    }, [])
+    
     const handleOnChange = (e) => {
         e.preventDefault();
-        setItem({ ...item, [e.target.name]: e.target.value })
+        if (e.target.name === 'title') {
+            setItem({ ...item, title: e.target.value, url: e.target.value.replace(/[^a-zA-Z1-9]/g, '-')+'-'+uid() })
+        } else if(e.target.name==='url'){
+            setItem({...item, url:e.target.value.replace(/[^a-zA-Z1-9]/g, '-')})
+        }
+        else {
+            setItem({ ...item, [e.target.name]: e.target.value })
+        }
+        console.log(item)
     }
     const handleOnUploadImage = async (e) => {
         e.preventDefault();
@@ -36,24 +52,23 @@ const AddItem = () => {
     const handleOnSubmit = async (e) => {
         e.preventDefault();
         if (typeof window !== 'undefined') {
-            setItem({ ...item, authtoken: localStorage.getItem('ms-authtoken') })
             const response = await fetch('/api/additem', {
                 method: "POST",
                 body: JSON.stringify(item)
             })
             const data = await response.json();
-            if(data.success){
+            if (data.success) {
                 Swal.fire({
-                    icon:'success',
-                    title:"Success",
-                    text:"Item added succesfully"
+                    icon: 'success',
+                    title: "Success",
+                    text: "Item added succesfully"
                 })
                 router.push('/add')
-            }else{
+            } else {
                 Swal.fire({
-                    icon:'error',
-                    title:"Failed",
-                    text:data.msg
+                    icon: 'error',
+                    title: "Failed",
+                    text: data.msg
                 })
             }
         }
@@ -66,6 +81,10 @@ const AddItem = () => {
                     <div className="w-full flex flex-col items-start  my-1">
                         <label htmlFor="title">Title <span className=' text-red-400'>*</span> </label>
                         <input name='title' onChange={handleOnChange} placeholder='1 BHK Flat' id='title-input' type="text" className='w-full pl-1 border border-gray-400 rounded focus:outline-blue-400 focus:outline ' />
+                    </div>
+                    <div className="w-full flex flex-col items-start  my-1">
+                        <label htmlFor="title">Url</label>
+                        <input name='url' onChange={handleOnChange} placeholder='url' value={item.url} id='url-input' type="text" className='w-full pl-1 border border-gray-400 rounded focus:outline-blue-400 focus:outline ' />
                     </div>
                     <div className="w-full flex flex-col items-start  my-1">
                         <label htmlFor="location">Location <span className=' text-red-400'>*</span> </label>

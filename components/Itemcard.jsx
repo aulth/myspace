@@ -25,7 +25,7 @@ const Itemcard = ({data}) => {
     }
     return (
         <>
-            <div className="border md:w-[250px] w-full border-gray-400 rounded p-1 m-1">
+            <div className="border gm md:w-[250px] w-full border-gray-400 rounded p-1 m-1">
                 <div className="w-full relative">
                     <img src={image} className='w-full rounded-sm' alt="" />
                     <div className="w-full flex justify-between absolute top-[50%] px-1">
@@ -37,7 +37,7 @@ const Itemcard = ({data}) => {
                     <h2 className="font-bold">{data.title}</h2>
                     <p className="text-sm font-semibold">{data.location}</p>
                     <p className="text-sm font-semibold">Rs {data.rent} + (50% Fee one time)</p>
-                    <Link href={"/1bhk"} >
+                    <Link href={`/item/${data.url}`} >
                         <button className="w-full py-1 px-2 bg-blue-400 text-white text-center rounded-sm hover:bg-blue-500 mt-1">View</button>
                     </Link>
                 </div>

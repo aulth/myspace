@@ -11,16 +11,16 @@ const addItem = async (req, res) => {
         if (req.method != 'POST') {
             return res.json({ success: false, msg: "Method not allowed" })
         }
-        let { title, location, nearbyplace, rent, category, furnished, electricityincluded, ac, floor, photo, authtoken } = JSON.parse(req.body);
+        let { title, location, nearbyplace, rent, category, furnished, electricityincluded, ac, floor, photo, authtoken, url } = JSON.parse(req.body);
         rent = +rent;
         console.log(JSON.parse(req.body))
-        if (!title || !location || !nearbyplace || !rent || !category || !furnished || !electricityincluded || !ac || !floor || !photo ) {
+        if (!title || !location || !nearbyplace || !rent || !category || !furnished || !electricityincluded || !ac || !floor || !photo || !url ) {
             return res.json({ success: false, msg: "Please fill all the fields" })
         }
         if(!authtoken){
             return res.json({success:false, msg:"Token not provided, please login to add this item."})
         }
-        let {email} = jwt.verify(authtoken, JWTSECRET);
+        let {email, name, phone} = jwt.verify(authtoken, JWTSECRET);
         let user = email
         if(!user){
             return res.json({success:false, msg:"User not authenticated"})
@@ -28,7 +28,10 @@ const addItem = async (req, res) => {
         console.log(user)
         let item =await Item.create({
             title,
+            name,
+            phone,
             user,
+            url,
             location,
             nearbyplace,
             rent,
