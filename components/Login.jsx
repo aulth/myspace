@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Navbar from './Navbar'
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/router'
@@ -6,6 +6,12 @@ import Link from 'next/link'
 const Login = () => {
     const router = useRouter();
     const [user, setUser] = useState({ id:'', password: ''});
+    useEffect(() => {
+     if(typeof window!=='undefined' && localStorage.getItem('ms-authtoken')){
+        router.push('/')
+     }
+    }, [])
+    
     const handleOnChange = (e) => {
         e.preventDefault();
         setUser({ ...user, [e.target.name]: e.target.value })

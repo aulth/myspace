@@ -1,28 +1,49 @@
 import React, { useState } from 'react'
 import Navbar from './Navbar'
-import {MdOutlineChevronRight, MdOutlineChevronLeft} from 'react-icons/md'
-
-const Itempage = ({item}) => {
+import { MdOutlineChevronRight, MdOutlineChevronLeft } from 'react-icons/md'
+import { FaShareAlt } from 'react-icons/fa'
+import Swal from 'sweetalert2'
+import Head from 'next/head'
+const Itempage = ({ item }) => {
     let imageArray = item.photo
     const [image, setImage] = useState(imageArray[0])
     const [slideNo, setSlideNo] = useState(0)
-    const handleOnNext = ()=>{
+    const handleOnNext = () => {
         let slide = slideNo;
         slide++;
-        if(slide>=imageArray.length){
-            slide=0;
+        if (slide >= imageArray.length) {
+            slide = 0;
         }
         setImage(imageArray[slide])
         setSlideNo(slide)
     }
-    const handleOnBack = ()=>{
+    const handleOnBack = () => {
         let slide = slideNo;
         slide--;
-        if(slide<0){
-            slide = imageArray.length-1;
+        if (slide < 0) {
+            slide = imageArray.length - 1;
         }
         setImage(imageArray[slide])
         setSlideNo(slide)
+    }
+    const handleOnShare = () => {
+        let data = {
+            title: item.title,
+            url: item.url,
+            text: item.location
+        }
+        console.log(item.url)
+        if (typeof window !== 'undefined') {
+            try {
+                navigator.share(data)
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Share Failed',
+                    text: error.msg,
+                })
+            }
+        }
     }
     return (
         <>
@@ -38,16 +59,24 @@ const Itempage = ({item}) => {
         }
         `}
             </style>
-            {
-                console.log(item)
-            }
             <Navbar />
+            <Head>
+                <title>{item.title + ' Rs ' + item.rent}</title>
+                <meta name="description" content={item.location} />
+                <link rel="icon" href="/favicon.ico" />
+                <meta property="og:title" content={item.title + " Rs " + item.rent} />
+                <meta property="og:site_name" content="mySpace" />
+                <meta property="og:url" content={'https://myspacebook.vercel.app/item/'+item.url} />
+                <meta property="og:description" content={item.location} />
+                <meta property="og:type" content="place" />
+                <meta property="og:image" content={item.photo[0]} />
+            </Head>
             <div className="w-full flex md:flex-row flex-col md:mt-1 justify-cente items-start">
                 <div className="w-full flex gm justify-center items-center relative">
                     <img src={image} className='w-full' alt="" />
                     <div className="w-full flex justify-between absolute top-[50%] px-4">
-                        <MdOutlineChevronLeft className='bg-white text-lg rounded hover:bg-gray-100 cursor-pointer' onClick={handleOnBack}/>
-                        <MdOutlineChevronRight className='bg-white text-lg rounded hover:bg-gray-100 cursor-pointer' onClick={handleOnNext}/>
+                        <MdOutlineChevronLeft className='bg-white text-lg rounded hover:bg-gray-100 cursor-pointer' onClick={handleOnBack} />
+                        <MdOutlineChevronRight className='bg-white text-lg rounded hover:bg-gray-100 cursor-pointer' onClick={handleOnNext} />
                     </div>
                 </div>
                 <div className="w-full p-2 gm ">
@@ -62,7 +91,7 @@ const Itempage = ({item}) => {
                             </tr>
                             <tr>
                                 <td>Furnished</td>
-                                <td>{item.furnished?'Yes':'No'}</td>
+                                <td>{item.furnished ? 'Yes' : 'No'}</td>
                             </tr>
                             <tr>
                                 <td>Category</td>
@@ -70,7 +99,7 @@ const Itempage = ({item}) => {
                             </tr>
                             <tr>
                                 <td>Ac</td>
-                                <td>{item.ac?'Available':'Not Available'}</td>
+                                <td>{item.ac ? 'Available' : 'Not Available'}</td>
                             </tr>
                             <tr>
                                 <td>Floor</td>
@@ -78,7 +107,7 @@ const Itempage = ({item}) => {
                             </tr>
                             <tr>
                                 <td>Electricity Included</td>
-                                <td>{item.electricityincluded?'Yes':'No'}</td>
+                                <td>{item.electricityincluded ? 'Yes' : 'No'}</td>
                             </tr>
                             <tr>
                                 <td>Nearby Location </td>
@@ -88,7 +117,8 @@ const Itempage = ({item}) => {
                         </tbody>
                     </table>
                     <div className="w-full flex text-lg mt-2">
-                        <button className="w-full py-1 px-2 bg-blue-400 rounded text-white">Contact to Broker</button>
+                        <button className="w-full py-1 px-2 bg-blue-400 hover:bg-blue-500 rounded text-white">Contact to Broker</button>
+                        <button onClick={handleOnShare} className="py-1 px-2 ml-1 bg-blue-400 hover:bg-blue-500 rounded text-white"><FaShareAlt /></button>
                     </div>
                 </div>
             </div>
