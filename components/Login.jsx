@@ -3,9 +3,13 @@ import Navbar from './Navbar'
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import {AiOutlineEye, AiOutlineEyeInvisible} from 'react-icons/ai'
+
 const Login = () => {
     const router = useRouter();
     const [user, setUser] = useState({ id:'', password: ''});
+    const [showPassword, setShowPassword] = useState(false)
+
     useEffect(() => {
      if(typeof window!=='undefined' && localStorage.getItem('ms-authtoken')){
         router.push('/')
@@ -52,6 +56,19 @@ const Login = () => {
         }
     }
     }
+    
+    const showHidePassword = ()=>{
+        if(typeof window!=='undefined'){
+            let elem =document.getElementById('password-input');
+            if(elem.type == 'password'){
+                elem.type = 'text'
+                setShowPassword(true)
+            }else{
+                elem.type = 'password'
+                setShowPassword(false)
+            }
+        }
+    }
     return (
         <>
             <Navbar />
@@ -60,11 +77,19 @@ const Login = () => {
                     <h2 className="text-xl text-blue-400 my-2 font-semibold">Login as broker</h2>
                     <div className='flex items-center border border-gray-400 w-full rounded p-1 my-1'>
                         <img src="https://img.icons8.com/material-sharp/24/000000/phone.png" className='w-[20px]' alt="" />
-                        <input name='id' onChange={handleOnChange} type="text" className='border-0 focus:outline-none w-full pl-1' placeholder='Enter email or phone' />
+                        <input name='id' onChange={handleOnChange} type="text" className='border-0 bg-transparent focus:outline-none w-full pl-1' placeholder='Enter email or phone' />
                     </div>
                     <div className='flex items-center border border-gray-400 w-full rounded p-1 my-1'>
                         <img src="https://img.icons8.com/ios-glyphs/30/000000/password--v1.png" className='w-[20px]' alt="" />
-                        <input type="password" onChange={handleOnChange} name='password' className='border-0 focus:outline-none w-full pl-1' placeholder='Password' />
+                        <input type="password" id='password-input' onChange={handleOnChange} name='password' className='border-0 bg-transparent focus:outline-none w-full pl-1' placeholder='Password' />
+                        <button type='button' >
+                        {
+                            !showPassword && <AiOutlineEye className='text-xl mx-1 cursor-pointer  ' onClick={showHidePassword}/>
+                        }
+                        {
+                            showPassword && <AiOutlineEyeInvisible  className='text-xl mx-1 cursor-pointer  ' onClick={showHidePassword} />
+                        }
+                        </button>
                     </div>
                     <div className="w-full flex justify-center">
                         <button className="px-2 py-1 bg-blue-300 focus:bg-blue-400 text-lg my-2 rounded text-white">Login</button>

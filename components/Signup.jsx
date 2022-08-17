@@ -3,9 +3,11 @@ import Navbar from './Navbar'
 import Link from 'next/link'
 import Swal from 'sweetalert2'
 import {useRouter} from 'next/router'
+import {AiOutlineEye, AiOutlineEyeInvisible} from 'react-icons/ai'
 const Signup = () => {
     const router = useRouter();
     const [user, setUser] = useState({ name: '', email: '', phone: '', password: '', photo: '' });
+    const [showPassword, setShowPassword] = useState(false)
     useEffect(() => {
         if(typeof window!=='undefined' && localStorage.getItem('ms-authtoken')){
            router.push('/')
@@ -28,6 +30,7 @@ const Signup = () => {
             body: data
         })
         let file = await response.json();
+        console.log(file.url)
         setUser({...user, photo:file.url})
         console.log(user)
     }
@@ -71,6 +74,19 @@ const Signup = () => {
         }
     }
     }
+
+    const showHidePassword = ()=>{
+        if(typeof window!=='undefined'){
+            let elem =document.getElementById('password-input');
+            if(elem.type == 'password'){
+                elem.type = 'text'
+                setShowPassword(true)
+            }else{
+                elem.type = 'password'
+                setShowPassword(false)
+            }
+        }
+    }
     return (
         <>
             <Navbar />
@@ -78,25 +94,33 @@ const Signup = () => {
                 <form onSubmit={handleOnSubmit} className='md:w-[400px] w-full flex flex-col items-center border border-gray-300 rounded p-2'>
                    {
                     user.photo &&  <div className="m-auto w-[50px]">
-                    <img src="http://res.cloudinary.com/mohdusman1/image/upload/v1660399075/sz8yppu6s1xdtebsk4xw.jpg" className=' rounded-full mt-2' alt="" />
+                    <img src={user.photo} className=' rounded-full mt-2' alt="" />
                 </div>
                    }
                     <h2 className="text-xl text-blue-400 my-2 font-semibold">Signup as Broker</h2>
                     <div className='flex items-center border border-gray-400 w-full rounded p-1 my-1'>
                         <img src="https://img.icons8.com/glyph-neue/64/000000/name.png" className='w-[20px]' alt="" />
-                        <input type="text" name='name' onChange={handleOnChange} className='border-0 focus:outline-none w-full pl-1' placeholder='Name' />
+                        <input type="text" name='name' onChange={handleOnChange} className='border-0 focus:outline-none w-full pl-1 bg-transparent' placeholder='Name' />
                     </div>
                     <div className='flex items-center border border-gray-400 w-full rounded p-1 my-1'>
                         <img src="https://img.icons8.com/material-outlined/24/000000/new-post.png" className='w-[20px]' alt="" />
-                        <input type="email" name='email' onChange={handleOnChange} className='border-0 focus:outline-none w-full pl-1' placeholder='Email' />
+                        <input type="email" name='email' onChange={handleOnChange} className='border-0 focus:outline-none w-full pl-1 bg-transparent' placeholder='Email' />
                     </div>
                     <div className='flex items-center border border-gray-400 w-full rounded p-1 my-1'>
                         <img src="https://img.icons8.com/material-sharp/24/000000/phone.png" className='w-[20px]' alt="" />
-                        <input type="tel" name='phone' onChange={handleOnChange} className='border-0 focus:outline-none w-full pl-1' placeholder='Phone Number' />
+                        <input type="tel" name='phone' onChange={handleOnChange} className='border-0 focus:outline-none w-full pl-1 bg-transparent' placeholder='Phone Number' />
                     </div>
                     <div className='flex items-center border border-gray-400 w-full rounded p-1 my-1'>
                         <img src="https://img.icons8.com/ios-glyphs/30/000000/password--v1.png" className='w-[20px]' alt="" />
-                        <input type="password" name='password' onChange={handleOnChange} className='border-0 focus:outline-none w-full pl-1' placeholder='Password' />
+                        <input id='password-input' type="password" name='password' onChange={handleOnChange} className='border-0 focus:outline-none w-full pl-1 bg-transparent' placeholder='Password' />
+                        <button type='button' >
+                        {
+                            !showPassword && <AiOutlineEye className='text-xl mx-1 cursor-pointer  ' onClick={showHidePassword}/>
+                        }
+                        {
+                            showPassword && <AiOutlineEyeInvisible  className='text-xl mx-1 cursor-pointer  ' onClick={showHidePassword} />
+                        }
+                        </button>
                     </div>
                     <div className='flex items-center border border-gray-400 w-full rounded p-1 my-1'>
                         <img src="https://img.icons8.com/material-outlined/24/000000/image.png" className='w-[20px]' alt="" />

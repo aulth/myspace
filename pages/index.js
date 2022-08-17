@@ -13,14 +13,11 @@ export default function Home({allItems, msg}) {
         <meta name="description" content="Initial" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <main>
        <Navbar/>
        <Search/>
        <Items allItems={allItems} msg={msg}/>
       </main>
-
-     
     </div>
     </>
   )
