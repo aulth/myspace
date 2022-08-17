@@ -27,15 +27,15 @@ const Navbar = () => {
     }
   }
   return (
-    <div className="w-full flex items-center justify-between box-border p-2 shadow-sm">
+    <div className="w-full bg-cyan-500 flex items-center justify-between box-border p-2 shadow-sm">
       <Link href={'/'}><img src='/images/logo.png' className='w-[150px] cursor-pointer'/></Link>
       <ul className="flex items-center">
-        <Link href={"/add"} ><li className='mx-1 hover:text-blue-400 font-semibold cursor-pointer'>Add</li></Link>
-        <li className='mx-1 hover:text-blue-400 font-semibold cursor-pointer'>Contact</li>
+        <Link href={"/add"} ><li className='mx-1 hover:text-white font-semibold cursor-pointer'>Add</li></Link>
+        <li className='mx-1 hover:text-white font-semibold cursor-pointer'>Contact</li>
         {
           loggedIn && <>
             <div className='relative'>
-              <li onClick={toggleProfile} className='mx-1 hover:text-blue-400 font-semibold cursor-pointer'><img className='w-[30px] rounded-full' src={localStorage.getItem('ms-photo')} alt="" /></li>
+              <li onClick={toggleProfile} className='mx-1 hover:text-white font-semibold cursor-pointer'><img className='w-[30px] rounded-full' src={localStorage.getItem('ms-photo')} alt="" /></li>
               <div id='myaccount' className="border gm z-10 hidden bg-white  items-start w-[100px] border-gray-300 p-1 rounded-sm absolute right-0 top-[42px]">
                 <button className='hover:font-semibold'>My Account</button>
                 <button className='hover:font-semibold' onClick={handleOnLogout}>Logout</button>
@@ -44,7 +44,7 @@ const Navbar = () => {
           </>
         }
         {
-          !loggedIn && <Link href={"/login"}><li className='mx-1 hover:text-blue-400 font-semibold cursor-pointer'>Login</li></Link>
+          !loggedIn && <Link href={"/login"}><li className='mx-1 hover:text-white font-semibold cursor-pointer'>Login</li></Link>
         }
 
       </ul>
