@@ -13,7 +13,6 @@ const addItem = async (req, res) => {
         }
         let { title, location, nearbyplace, rent, category, furnished, electricityincluded, ac, floor, photo, authtoken, url } = JSON.parse(req.body);
         rent = +rent;
-        console.log(JSON.parse(req.body))
         if (!title || !location || !nearbyplace || !rent || !category || !furnished || !electricityincluded || !ac || !floor || !photo || !url ) {
             return res.json({ success: false, msg: "Please fill all the fields" })
         }
@@ -25,7 +24,6 @@ const addItem = async (req, res) => {
         if(!user){
             return res.json({success:false, msg:"User not authenticated"})
         }
-        console.log(user)
         let item =await Item.create({
             title,
             name,
@@ -49,7 +47,6 @@ const addItem = async (req, res) => {
             return res.json({success:false, msg:"Item not added"})
         }
     } catch (error) {
-        console.log(error)
         return res.json({success:false, msg:error.msg})
     }
 }

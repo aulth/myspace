@@ -34,7 +34,7 @@ const AddItem = () => {
             for (let i = 0; i < e.target.files.length; i++) {
                 let data = new FormData();
                 data.append('file', files[i]);
-                data.append('upload_preset', 'myspace');
+                data.append('upload_preset', 'myspaceitem');
                 let response = await fetch('https://api.cloudinary.com/v1_1/mohdusman1/image/upload', {
                     method: "POST",
                     body: data
