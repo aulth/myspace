@@ -24,7 +24,7 @@ const editUser = async (req, res)=>{
     if(!newData){
         return res.json({success:false, msg:"Update failed"})
     } 
-    
+    console.log(newData)
     return res.json({success:true, user:{name,photo,}});
 
 }

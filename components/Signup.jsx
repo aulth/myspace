@@ -87,7 +87,7 @@ const Signup = () => {
                     <img src={user.photo} className=' rounded-full mt-2' alt="" />
                 </div>
                    }
-                    <h2 className="text-xl text-blue-400 my-2 font-semibold">Signup as Broker</h2>
+                    <h2 className="text-xl text-cyan-400 my-2 font-semibold">Signup as Broker</h2>
                     <div className='flex items-center border border-gray-400 w-full rounded p-1 my-1'>
                         <img src="https://img.icons8.com/glyph-neue/64/000000/name.png" className='w-[20px]' alt="" />
                         <input type="text" name='name' onChange={handleOnChange} className='border-0 focus:outline-none w-full pl-1 bg-transparent' placeholder='Name' />
@@ -117,7 +117,7 @@ const Signup = () => {
                         <input type="file" name='image' title='Upload Profile Pic' onChange={handleOnImageUpload} className='border-0 focus:outline-none w-full pl-1'  />
                     </div>
                     <div className="w-full flex justify-center">
-                        <button className="px-2 py-1 bg-blue-300 focus:bg-blue-400 text-lg my-2 rounded text-white">Signup</button>
+                        <button className="px-2 py-1 bg-cyan-300 focus:bg-cyan-400 text-lg my-2 rounded text-white">Signup</button>
                     </div>
                     <div className="w-full flex items-center justify-center text-sm">
                         <p className=''>Already have an account?</p>

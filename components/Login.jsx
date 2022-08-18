@@ -63,7 +63,7 @@ const Login = () => {
             <ToastContainer position='top-right'/>
             <div style={{ height: 'calc(100vh - 44px)' }} className="w-full flex justify-center md:items-center items-start md:p-0 p-2 ">
                 <form onSubmit={handleOnSubmit} className='md:w-[400px] w-full flex flex-col items-center border border-gray-300 rounded p-2'>
-                    <h2 className="text-xl text-blue-400 my-2 font-semibold">Login as broker</h2>
+                    <h2 className="text-xl text-cyan-400 my-2 font-semibold">Login as broker</h2>
                     <div className='flex items-center border border-gray-400 w-full rounded p-1 my-1'>
                         <img src="https://img.icons8.com/material-sharp/24/000000/phone.png" className='w-[20px]' alt="" />
                         <input name='id' onChange={handleOnChange} type="text" className='border-0 bg-transparent focus:outline-none w-full pl-1' placeholder='Enter email or phone' />
@@ -81,7 +81,7 @@ const Login = () => {
                         </button>
                     </div>
                     <div className="w-full flex justify-center">
-                        <button className="px-2 py-1 bg-blue-300 focus:bg-blue-400 text-lg my-2 rounded text-white">Login</button>
+                        <button className="px-2 py-1 bg-cyan-300 focus:bg-cyan-400 text-lg my-2 rounded text-white">Login</button>
                     </div>
                     <div className="w-full flex items-center justify-center text-sm">
                         <Link href={'/forgot-password'}><button className=''>Forgot Password?</button></Link>

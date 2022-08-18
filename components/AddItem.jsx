@@ -77,24 +77,24 @@ const AddItem = () => {
                 <form onSubmit={handleOnSubmit} className='w-full'>
                     <div className="w-full flex flex-col items-start  my-1">
                         <label htmlFor="title">Title <span className=' text-red-400'>*</span> </label>
-                        <input name='title' onChange={handleOnChange} placeholder='1 BHK Flat' id='title-input' type="text" className='w-full pl-1 border border-gray-400 rounded focus:outline-blue-400 focus:outline ' />
+                        <input name='title' onChange={handleOnChange} placeholder='1 BHK Flat' id='title-input' type="text" className='w-full pl-1 border border-gray-400 rounded focus:outline-cyan-400 focus:outline ' />
                     </div>
                     {/* <div className="w-full flex flex-col items-start  my-1">
                         <label htmlFor="title">Url</label>
-                        <input name='url' onChange={handleOnChange} placeholder='url' value={item.url} id='url-input' type="text" className='w-full pl-1 border border-gray-400 rounded focus:outline-blue-400 focus:outline ' />
+                        <input name='url' onChange={handleOnChange} placeholder='url' value={item.url} id='url-input' type="text" className='w-full pl-1 border border-gray-400 rounded focus:outline-cyan-400 focus:outline ' />
                     </div> */}
                     <div className="w-full flex flex-col items-start  my-1">
                         <label htmlFor="location">Location <span className=' text-red-400'>*</span> </label>
-                        <input name='location' onChange={handleOnChange} placeholder='Pahlewan Chauk Batla House, Okhla New Delhi 110025' id='location-input' type="text" className='w-full pl-1 border border-gray-400 rounded focus:outline-blue-400 focus:outline ' />
+                        <input name='location' onChange={handleOnChange} placeholder='Pahlewan Chauk Batla House, Okhla New Delhi 110025' id='location-input' type="text" className='w-full pl-1 border border-gray-400 rounded focus:outline-cyan-400 focus:outline ' />
                     </div>
                     <div className="w-full flex flex-col items-start  my-1">
                         <label htmlFor="nearby-place">Nearby Place <span className=' text-red-400'>*</span> </label>
-                        <input name='nearbyplace' onChange={handleOnChange} placeholder='Al Noot Masjid, Farhan Juice Corner' id='nearby-place-input' type="text" className='w-full pl-1 border border-gray-400 rounded focus:outline-blue-400 focus:outline ' />
+                        <input name='nearbyplace' onChange={handleOnChange} placeholder='Al Noot Masjid, Farhan Juice Corner' id='nearby-place-input' type="text" className='w-full pl-1 border border-gray-400 rounded focus:outline-cyan-400 focus:outline ' />
                     </div>
                     <div className="w-full flex flex-wrap">
                         <div className="flex flex-col items-start my-1">
                             <label htmlFor="">Rent (INR)<span className=' text-red-400'>*</span> </label>
-                            <input name='rent' onChange={handleOnChange} placeholder='5000' id='rent-input' type="number" className='w-[90px] pl-1 border border-gray-400 rounded focus:outline-blue-400 focus:outline ' />
+                            <input name='rent' onChange={handleOnChange} placeholder='5000' id='rent-input' type="number" className='w-[90px] pl-1 border border-gray-400 rounded focus:outline-cyan-400 focus:outline ' />
                         </div>
                         <div className="flex flex-col items-start my-1 ml-2">
                             <label htmlFor="">Category?<span className=' text-red-400'>*</span> </label>

@@ -22,6 +22,7 @@ const User = () => {
                 body: JSON.stringify({ authtoken: localStorage.getItem('ms-authtoken') })
             })
             let data = await response.json()
+            console.log(data)
             setUser({ ...user, name: data.user.name, photo: data.user.photo, email: data.user.email, password:data.user.password,  authtoken: localStorage.getItem('ms-authtoken') })
         }
     }
