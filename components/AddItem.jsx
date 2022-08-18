@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import Swal from 'sweetalert2'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Navbar from './Navbar'
 import ShortUniqueId from 'short-unique-id'
 import { useRouter } from 'next/router'
@@ -9,9 +10,12 @@ const AddItem = () => {
     const [item, setItem] = useState({ title: '', location: '', url: '', nearbyplace: '', rent: '', category: '1 BHK', furnished: 'false', electricityincluded: 'false', ac: 'false', floor: '1', photo: [], authtoken:'' })
     let image = []
     useEffect(() => {
-      if(typeof window!=='undefined' && localStorage.getItem('ms-authtoken')){
-        setItem({...item, authtoken:localStorage.getItem('ms-authtoken')})
-      }
+      if(typeof window!=='undefined')
+        if(localStorage.getItem('ms-authtoken')){
+            setItem({...item, authtoken:localStorage.getItem('ms-authtoken')})
+        }else{
+            router.push('/')
+        }
     }, [])
     
     const handleOnChange = (e) => {
@@ -58,34 +62,27 @@ const AddItem = () => {
             })
             const data = await response.json();
             if (data.success) {
-                Swal.fire({
-                    icon: 'success',
-                    title: "Success",
-                    text: "Item added succesfully"
-                })
+                toast.success("Item added successfully")
                 router.push('/add')
             } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: "Failed",
-                    text: data.msg
-                })
+                toast.error(data.msg)
             }
         }
     }
     return (
         <>
             <Navbar />
+            <ToastContainer position='top-right'/>
             <div className="w-full flex justify-center p-4">
                 <form onSubmit={handleOnSubmit} className='w-full'>
                     <div className="w-full flex flex-col items-start  my-1">
                         <label htmlFor="title">Title <span className=' text-red-400'>*</span> </label>
                         <input name='title' onChange={handleOnChange} placeholder='1 BHK Flat' id='title-input' type="text" className='w-full pl-1 border border-gray-400 rounded focus:outline-blue-400 focus:outline ' />
                     </div>
-                    <div className="w-full flex flex-col items-start  my-1">
+                    {/* <div className="w-full flex flex-col items-start  my-1">
                         <label htmlFor="title">Url</label>
                         <input name='url' onChange={handleOnChange} placeholder='url' value={item.url} id='url-input' type="text" className='w-full pl-1 border border-gray-400 rounded focus:outline-blue-400 focus:outline ' />
-                    </div>
+                    </div> */}
                     <div className="w-full flex flex-col items-start  my-1">
                         <label htmlFor="location">Location <span className=' text-red-400'>*</span> </label>
                         <input name='location' onChange={handleOnChange} placeholder='Pahlewan Chauk Batla House, Okhla New Delhi 110025' id='location-input' type="text" className='w-full pl-1 border border-gray-400 rounded focus:outline-blue-400 focus:outline ' />
@@ -154,7 +151,7 @@ const AddItem = () => {
                     <div id="uploaded-image" className='flex flex-wrap mt-2'>
                     </div>
                     <div className="w-full flex flex-col items-start  my-1">
-                        <input type="submit" value="Add" className='py-1 px-2 bg-blue-400 text-white cursor-pointer mt-1 hover:bg-blue-500' />
+                        <input type="submit" value="Add" className='py-1 px-2 bg-cyan-400 text-white cursor-pointer mt-1 hover:bg-cyan-500' />
                     </div>
                 </form>
             </div>

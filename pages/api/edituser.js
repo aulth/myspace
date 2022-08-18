@@ -7,7 +7,7 @@ const editUser = async (req, res)=>{
     if(req.method!='POST'){
         return res.json({success:false, msg:"This method is not allowed"})
     }
-    let {name, authtoken, photo} = JSON.parse(req.body)
+    let {name, email, password, authtoken, photo} = JSON.parse(req.body)
     if(!authtoken){
         return res.json({success:false, msg:"No authtoken provided"})
     }
@@ -15,12 +15,17 @@ const editUser = async (req, res)=>{
     if(!user){
         return res.json({success:false, msg:"authtoken provided is not valid, please login and retry"})
     }
-    let newData = await User.findOneAndUpdate({email:user.email}, {name:name, photo:photo});
+    let isEmailExists = await User.findOne({email:email});
+    console.log(isEmailExists)
+    if(isEmailExists){
+        return res.json({success:false, msg:"This email is already in used"})
+    }
+    let newData = await User.findOneAndUpdate({email:user.email}, {name:name, photo:photo, password:password, email:email,});
     if(!newData){
         return res.json({success:false, msg:"Update failed"})
     } 
     
-    return res.json({success:true, user:{name,photo}});
+    return res.json({success:true, user:{name,photo,}});
 
 }
 export default editUser

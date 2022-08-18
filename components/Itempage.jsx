@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import Navbar from './Navbar'
 import { MdOutlineChevronRight, MdOutlineChevronLeft } from 'react-icons/md'
 import { FaShareAlt } from 'react-icons/fa'
-import Swal from 'sweetalert2'
 import Head from 'next/head'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Itempage = ({ item }) => {
     let imageArray = item.photo
     const [image, setImage] = useState(imageArray[0])
@@ -37,11 +38,7 @@ const Itempage = ({ item }) => {
             try {
                 navigator.share(data)
             } catch (error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Share Failed',
-                    text: error.msg,
-                })
+                toast.error("Share failed")
             }
         }
     }
@@ -60,6 +57,7 @@ const Itempage = ({ item }) => {
         `}
             </style>
             <Navbar />
+            <ToastContainer position='top-right'/>
             <Head>
                 <title>{item.title + ' Rs ' + item.rent}</title>
                 <meta name="description" content={item.location} />

@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import Navbar from './Navbar'
-import Swal from 'sweetalert2'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import {AiOutlineEye, AiOutlineEyeInvisible} from 'react-icons/ai'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Login = () => {
     const router = useRouter();
     const [user, setUser] = useState({ id:'', password: ''});
@@ -23,36 +23,24 @@ const Login = () => {
     const handleOnSubmit = async (e) => {
         e.preventDefault()
         if(!user.id || !user.password){
-            Swal.fire({
-                icon:'error',
-                title:'Missing',
-                text:"Please Fill All the fields"
-            })
+            toast.info("Please fill all the fields")
         }else{
         const response = await fetch('/api/login', {
             method:'POST',
             body:JSON.stringify(user)
         })
         const data = await response.json();
-        console.log(data)
         if(data.success){
             localStorage.setItem('ms-userid', data.userid);
             localStorage.setItem('ms-authtoken', data.authtoken);
             localStorage.setItem('ms-username', data.name);
             localStorage.setItem('ms-email', data.email);
             localStorage.setItem('ms-photo', data.photo);
-            Swal.fire({
-                icon:'success',
-                title:'Success',
-                text:'Login succesfull'
-            })
+            toast.success("Login successfull")
             router.push('/')
+        
         }else{
-            Swal.fire({
-                icon:'error',
-                title:'Failed',
-                text:data.msg
-            })
+            toast.error(data.msg)
         }
     }
     }
@@ -72,6 +60,7 @@ const Login = () => {
     return (
         <>
             <Navbar />
+            <ToastContainer position='top-right'/>
             <div style={{ height: 'calc(100vh - 44px)' }} className="w-full flex justify-center md:items-center items-start md:p-0 p-2 ">
                 <form onSubmit={handleOnSubmit} className='md:w-[400px] w-full flex flex-col items-center border border-gray-300 rounded p-2'>
                     <h2 className="text-xl text-blue-400 my-2 font-semibold">Login as broker</h2>

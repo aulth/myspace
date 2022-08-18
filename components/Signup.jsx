@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from './Navbar'
 import Link from 'next/link'
-import Swal from 'sweetalert2'
 import {useRouter} from 'next/router'
 import {AiOutlineEye, AiOutlineEyeInvisible} from 'react-icons/ai'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Signup = () => {
     const router = useRouter();
     const [user, setUser] = useState({ name: '', email: '', phone: '', password: '', photo: '' });
@@ -37,11 +38,7 @@ const Signup = () => {
     const handleOnSubmit = async (e) => {
         e.preventDefault()
         if(!user.name || !user.email || !user.phone || !user.password || !user.photo){
-            Swal.fire({
-                icon:'error',
-                title:'Missing',
-                text:"Please Fill All the fields"
-            })
+            toast.error("Please fill all the fields")
         }else{
             console.log('fetching signup')
         const response = await fetch('/api/signup', {
@@ -59,18 +56,10 @@ const Signup = () => {
             localStorage.setItem('ms-username', data.name);
             localStorage.setItem('ms-email', data.email);
             localStorage.setItem('ms-photo', data.photo);
-            Swal.fire({
-                icon:'success',
-                title:'Success',
-                text:'Sign up succesfull'
-            })
+            toast.success("Sign up successfull")
             router.push('/')
         }else{
-            Swal.fire({
-                icon:'error',
-                title:'Failed',
-                text:data.msg
-            })
+            toast.error(data.msg)
         }
     }
     }
@@ -90,6 +79,7 @@ const Signup = () => {
     return (
         <>
             <Navbar />
+            <ToastContainer position='top-right'/>
             <div style={{ height: 'calc(100vh - 44px)' }} className="w-full flex justify-center md:items-center items-start md:p-0 p-2 ">
                 <form onSubmit={handleOnSubmit} className='md:w-[400px] w-full flex flex-col items-center border border-gray-300 rounded p-2'>
                    {

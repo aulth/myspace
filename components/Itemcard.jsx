@@ -38,7 +38,7 @@ const Itemcard = ({data}) => {
                     <p className="text-sm font-semibold">{data.location}</p>
                     <p className="text-sm font-semibold">Rs {data.rent} + (50% Fee one time)</p>
                     <Link href={`/item/${data.url}`} >
-                        <button className="w-full py-1 px-2 bg-blue-400 text-white text-center rounded-sm hover:bg-blue-500 mt-1">View</button>
+                        <button className="w-full py-1 px-2 bg-cyan-400 text-white text-center rounded-sm hover:bg-cyan-500 mt-1">View</button>
                     </Link>
                 </div>
             </div>

@@ -19,8 +19,8 @@ const addItem = async (req, res) => {
         if(!authtoken){
             return res.json({success:false, msg:"Token not provided, please login to add this item."})
         }
-        let {email, name, phone} = jwt.verify(authtoken, JWTSECRET);
-        let user = email
+        let {email, name, phone, id} = jwt.verify(authtoken, JWTSECRET);
+        let user = id;
         if(!user){
             return res.json({success:false, msg:"User not authenticated"})
         }
@@ -39,7 +39,8 @@ const addItem = async (req, res) => {
             ac,
             floor,
             photo,
-            itemid
+            itemid,
+            email
         })
         if (item) {
             return res.json({ success: true, msg: 'Item added succesfully'})

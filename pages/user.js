@@ -2,10 +2,19 @@ import React, { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import { MdOutlineEdit, MdOutlineSave, MdOutlineFileUpload } from 'react-icons/md'
 import Items from '../components/Items'
-const User = ({ allItems, msg }) => {
+import {AiOutlineEye, AiOutlineEyeInvisible} from 'react-icons/ai'
+import Link from 'next/link'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {useRouter} from 'next/router'
+const User = () => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [editWindowOpen, setEditWindowOpen] = useState(false)
-    const [user, setUser] = useState({ name: '', photo: '' , email:'', authtoken:''})
+    const [showPassword, setShowPassword] = useState(false)
+    const [user, setUser] = useState({ name: '', photo: '', email: '', authtoken: '', password:'' });
+    const [items, setItems] = useState([])
+    const [msg, setMsg] = useState('')
+    const router = useRouter();
     const fetchUser = async () => {
         if (typeof window !== 'undefined') {
             let response = await fetch('/api/fetchuser', {
@@ -13,13 +22,33 @@ const User = ({ allItems, msg }) => {
                 body: JSON.stringify({ authtoken: localStorage.getItem('ms-authtoken') })
             })
             let data = await response.json()
-            setUser({...user, name:data.user.name, photo:data.user.photo, email:data.user.email, authtoken:localStorage.getItem('ms-authtoken')})
+            setUser({ ...user, name: data.user.name, photo: data.user.photo, email: data.user.email, password:data.user.password,  authtoken: localStorage.getItem('ms-authtoken') })
+        }
+    }
+    const fetchItems = async ()=>{
+        if(typeof window!=='undefined'){
+            const response = await fetch("/api/getuseritem", {
+                method:"POST",
+                body:JSON.stringify({authtoken:localStorage.getItem('ms-authtoken')})
+            })
+            const data = await response.json();
+            console.log(data)
+            if(data.success){
+                setItems(data)
+            }else{
+                setMsg(data.msg)
+            }
         }
     }
     useEffect(() => {
-        if (typeof window !== 'undefined' && localStorage.getItem('ms-authtoken')) {
-            setLoggedIn(true)
-            fetchUser()
+        if (typeof window !== 'undefined'){
+            if(localStorage.getItem('ms-authtoken')){
+                setLoggedIn(true);
+                fetchUser();
+                fetchItems();
+            }else{
+                router.push('/')
+            }
         }
     }, [])
     const openCloseEditWindow = () => {
@@ -52,25 +81,40 @@ const User = ({ allItems, msg }) => {
             alert(error.msg)
         }
     }
-    const handleOnEditName = (e) => {
-        setUser({ ...user, name: e.target.value })
+    const handleOnChange = (e) => {
+        setUser({ ...user, [e.target.name]: e.target.value })
     }
     const handleOnSave = async (e) => {
         e.preventDefault();
         const response = await fetch('/api/edituser', {
-            method:'POST',
-            body:JSON.stringify(user)
+            method: 'POST',
+            body: JSON.stringify(user)
         })
         const data = await response.json();
-        if(data.success){
+        if (data.success) {
             localStorage.setItem('ms-name', data.user.name);
             localStorage.setItem('ms-photo', data.user.photo)
             openCloseEditWindow()
+        }else{
+            toast.error(data.msg)
+        }
+    }
+    const showHidePassword = ()=>{
+        if(typeof window!=='undefined'){
+            let elem =document.getElementById('password-input');
+            if(elem.type == 'password'){
+                elem.type = 'text'
+                setShowPassword(true)
+            }else{
+                elem.type = 'password'
+                setShowPassword(false)
+            }
         }
     }
     return (
         <>
             <Navbar />
+            <ToastContainer position='top-right'/>
             <div className="w-full rounded flex flex-col items-center md:p-2 p-1 ">
                 <div className="w-full flex flex-col items-center mt-3 border border-gray-300 rounded relative">
                     {
@@ -90,12 +134,29 @@ const User = ({ allItems, msg }) => {
                                             <img src={user.photo} onClick={uploadImageTrigger} className="w-[60px] h-[60px] mt-2 rounded-full cursor-pointer opacity-60 hover:opacity-75" alt="" />
                                             <MdOutlineFileUpload onClick={uploadImageTrigger} className=' cursor-pointer absolute text-2xl mt-2' />
                                         </div>
-                                        <div className=" flex m-auto items-center border border-gray-300 px-1 rounded my-3">
+                                        <div className=" flex md:w-[250px] w-full m-auto items-center border border-gray-300 px-1 rounded my-1 mt-3">
                                             <input onChange={uploadImage} type="file" name="photo" id="user-photo-input" hidden />
                                             <img src="https://img.icons8.com/glyph-neue/64/000000/name.png" className='w-[20px]' alt="" />
-                                            <input onChange={handleOnEditName} type="text" name='name' value={user.name} className='bg-transparent px-1 border-none w-[250px] rounded focus:outline-none my-1' />
+                                            <input onChange={handleOnChange} type="text" name='name' value={user.name} className='bg-transparent px-1 border-none w-full rounded focus:outline-none my-1' />
                                         </div>
-                                    <button className='absolute top-1 right-1 flex items-center z-10 bg-cyan-400 p-1 rounded-sm text-sm text-white'>Save <MdOutlineSave className='text-lg' /> </button>
+                                        <div className=" md:w-[250px] w-full flex m-auto items-center border border-gray-300 px-1 rounded my-1">
+                                            <img src="https://img.icons8.com/material-outlined/24/000000/new-post.png" className='w-[20px]' alt="" />
+                                            <input onChange={handleOnChange} type="email" name='email' value={user.email} className='bg-transparent px-1 border-none w-full rounded focus:outline-none my-1' />
+                                        </div>
+                                        <div className=" md:w-[250px] w-full flex m-auto items-center border border-gray-300 px-1 rounded my-1">
+                                            <img src="https://img.icons8.com/ios-glyphs/30/000000/password--v1.png" className='w-[20px]' alt="" />
+                                            <input onChange={handleOnChange} type="password" id='password-input' name='password' value={user.password} className='bg-transparent px-1 border-none w-full rounded focus:outline-none my-1' />
+                                            <button type='button' >
+                                                {
+                                                    !showPassword && <AiOutlineEye className='text-xl mx-1 cursor-pointer  ' onClick={showHidePassword} />
+                                                }
+                                                {
+                                                    showPassword && <AiOutlineEyeInvisible className='text-xl mx-1 cursor-pointer  ' onClick={showHidePassword} />
+                                                }
+                                            </button>
+
+                                        </div>
+                                        <button className='absolute top-1 right-1 flex items-center z-10 bg-cyan-400 p-1 rounded-sm text-sm text-white'>Save <MdOutlineSave className='text-lg' /> </button>
 
                                     </form>
                                 </>
@@ -104,25 +165,23 @@ const User = ({ allItems, msg }) => {
                     }
 
                 </div>
-                <div className="w-full rounded border border-gray-300 mt-2">
-                    {/* <Items allItems={allItems} msg={msg} /> */}
-
+                {
+                    loggedIn && <>
+                    <div className="w-full rounded border border-gray-300 mt-2">
+                    {
+                        items.length>0 && <Items allItems={items} />
+                    }{
+                        !items.length>0 && <>
+                        <h2 className='text-center font-semibold'>{msg}</h2>
+                        <Link href={"/add"}><h3 className='text-center text-sm text-cyan-500 cursor-pointer hover:text-cyan-600 font-semibold'>List your first item</h3></Link>
+                        </>
+                    }
                 </div>
+                    </>
+                }
             </div>
         </>
     )
 }
 
 export default User
-export async function getServerSideProps(context) {
-    const response = await fetch('https://myspacebook.vercel.app/api/getallitem');
-    const data = await response.json();
-    if (data.success) {
-        return {
-            props: { allItems: data.item, msg: 'Data Available' }
-        }
-    }
-    return {
-        props: { allItems: {}, msg: data.msg }
-    }
-}

@@ -1,6 +1,7 @@
 import connectToDb from "../../middlewares/connectToDb";
 import jwt from 'jsonwebtoken'
 connectToDb();
+import User from "../../models/User";
 const JWTSECRET = "HELLO"
 const fetchUser = async (req, res)=>{
     if(req.method!='POST'){
@@ -14,7 +15,13 @@ const fetchUser = async (req, res)=>{
     if(!user){
         return res.json({success:false, msg:"authtoken provided is not valid, please login and retry"})
     }
+    let userFromDatabase = await User.findOne({email:user.email});
+    if(!userFromDatabase){
+        return res.json({success:false, msg:"User could not fetched"})
+    }
+    user.password = userFromDatabase.password;
     return res.json({success:true, user})
+
 
 }
 export default fetchUser

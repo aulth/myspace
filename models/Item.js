@@ -14,7 +14,8 @@ const ItemSchema  = new mongoose.Schema({
     electricyincluded:Boolean,
     ac:Boolean,
     floor:String,
-    photo:Array
+    photo:Array,
+    email:String,
 
 })
 
