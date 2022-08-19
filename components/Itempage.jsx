@@ -33,7 +33,6 @@ const Itempage = ({ item }) => {
             url: item.url,
             text: item.location
         }
-        console.log(item.url)
         if (typeof window !== 'undefined') {
             try {
                 navigator.share(data)

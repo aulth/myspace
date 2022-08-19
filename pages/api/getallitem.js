@@ -6,6 +6,7 @@ const getAllItem = async (req, res)=>{
     if(!item){
         return res.json({success:false, msg:"No item avaliable"})
     }else{
+        console.log(item)
         return res.json({success:true, item})
     }
 }

@@ -34,7 +34,7 @@ const User = () => {
             })
             const data = await response.json();
             if(data.success){
-                setItems(data)
+                setItems(data.item)
             }else{
                 setMsg(data.msg)
             }
@@ -171,9 +171,9 @@ const User = () => {
                     loggedIn && <>
                     <div className="w-full rounded border border-gray-300 mt-2">
                     {
-                        items.length>0 && <Items allItems={items} />
+                        items  && <Items allItems={items} />
                     }{
-                        !items.length>0 && <>
+                        !items && <>
                         <h2 className='text-center font-semibold'>{msg}</h2>
                         <Link href={"/add"}><h3 className='text-center text-sm text-cyan-500 cursor-pointer hover:text-cyan-600 font-semibold'>List your first item</h3></Link>
                         </>

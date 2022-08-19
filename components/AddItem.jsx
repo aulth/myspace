@@ -28,7 +28,6 @@ const AddItem = () => {
         else {
             setItem({ ...item, [e.target.name]: e.target.value })
         }
-        console.log(item)
     }
     const handleOnUploadImage = async (e) => {
         e.preventDefault();

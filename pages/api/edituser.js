@@ -17,18 +17,15 @@ const editUser = async (req, res)=>{
     }
     if(user.email!=email){
         let isEmailExists = await User.findOne({email:email});
-        console.log(isEmailExists)
         if(isEmailExists){
             return res.json({success:false, msg:"This email is already in used"})
         }
     }
-    let newData = await User.findOneAndUpdate({email:user.email}, {name:name, photo:photo, password:password, email:email,});
+    let newData = await User.findOneAndUpdate({email:user.email}, {name:name, photo:photo, password:password, email:email});
     if(!newData){
         return res.json({success:false, msg:"Update failed"})
     } 
-    console.log(newData)
-    authtoken = jwt.sign({name:name, email:email, photo:photo}, JWTSECRET)
-    console.log(newData)
+    authtoken = jwt.sign({name:name, email:email, photo:photo, id:user.id}, JWTSECRET)
     return res.json({success:true, user:{name,photo,authtoken}});
 
 }
