@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import Items from '../components/Items'
+import MobileNavbar from '../components/MobileNavbar';
 import Navbar from '../components/Navbar'
 // import Search from '../components/Search'
-
 export default function Home({allItems, msg}) {
 
   return (
@@ -17,6 +17,7 @@ export default function Home({allItems, msg}) {
        <Navbar/>
        {/* <Search/> */}
        <Items allItems={allItems} msg={msg}/>
+       <MobileNavbar/>
       </main>
     </div>
     </>

@@ -25,7 +25,6 @@ export async function getServerSideProps(context){
     if(db.connections[0].readyState){
       let item = await Item.findOne({url:slug})
       if(item){
-        console.log(item)
         return {
           props:{
             success:true,

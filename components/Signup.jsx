@@ -17,12 +17,9 @@ const Signup = () => {
     const handleOnChange = (e) => {
         e.preventDefault();
         setUser({ ...user, [e.target.name]: e.target.value })
-        console.log(user)
     }
     const handleOnImageUpload = async (e) => {
-        console.log('image uploading')
         const files = e.target.files;
-        console.log(files[0])
         const data = new FormData();
         data.append('file', files[0]);
         data.append('upload_preset', 'myspace')
@@ -31,16 +28,13 @@ const Signup = () => {
             body: data
         })
         let file = await response.json();
-        console.log(file.url)
         setUser({...user, photo:file.url})
-        console.log(user)
     }
     const handleOnSubmit = async (e) => {
         e.preventDefault()
         if(!user.name || !user.email || !user.phone || !user.password || !user.photo){
             toast.error("Please fill all the fields")
         }else{
-            console.log('fetching signup')
         const response = await fetch('/api/signup', {
             method:'POST',
             headers:{
@@ -49,7 +43,6 @@ const Signup = () => {
             body:JSON.stringify({name:user.name, email:user.email, phone:user.phone, password:user.password, photo:user.photo})
         })
         const data = await response.json();
-        console.log(data)
         if(data.success){
             localStorage.setItem('ms-userid', data.userid);
             localStorage.setItem('ms-authtoken', data.authtoken);

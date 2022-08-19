@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {useRouter} from 'next/router'
+import MobileNavbar from '../components/MobileNavbar'
 const User = () => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [editWindowOpen, setEditWindowOpen] = useState(false)
@@ -22,7 +23,6 @@ const User = () => {
                 body: JSON.stringify({ authtoken: localStorage.getItem('ms-authtoken') })
             })
             let data = await response.json()
-            console.log(data)
             setUser({ ...user, name: data.user.name, photo: data.user.photo, email: data.user.email, password:data.user.password,  authtoken: localStorage.getItem('ms-authtoken') })
         }
     }
@@ -33,7 +33,6 @@ const User = () => {
                 body:JSON.stringify({authtoken:localStorage.getItem('ms-authtoken')})
             })
             const data = await response.json();
-            console.log(data)
             if(data.success){
                 setItems(data)
             }else{
@@ -94,7 +93,9 @@ const User = () => {
         const data = await response.json();
         if (data.success) {
             localStorage.setItem('ms-name', data.user.name);
-            localStorage.setItem('ms-photo', data.user.photo)
+            localStorage.setItem('ms-photo', data.user.photo);
+            localStorage.setItem('ms-authtoken', data.user.authtoken)
+            toast.success("Update Success")
             openCloseEditWindow()
         }else{
             toast.error(data.msg)
@@ -181,6 +182,7 @@ const User = () => {
                     </>
                 }
             </div>
+            <MobileNavbar/>
         </>
     )
 }
