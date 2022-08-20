@@ -40,16 +40,16 @@ const Navbar = () => {
   return (
     <>
       <ToastContainer position='top-right' />
-      <div className="w-full bg-cyan-500 flex items-center justify-between box-border p-2 shadow-sm">
+      <div className="w-full flex items-center justify-between box-border p-2">
         <Link href={'/'}><img src='/images/logo.png' className='w-[130px] cursor-pointer' /></Link>
-        <div className="md:w-3/4 mx-4  gm md:flex hidden items-center pl-1 rounded" id='search-box'>
+        {/* <div className="md:w-3/4 mx-4  gm md:flex hidden items-center pl-1 rounded" id='search-box'>
           <img src="https://img.icons8.com/ios/50/000000/search--v1.png" className='w-[20px]' alt="" />
           <input type="search" placeholder='Search here..' className='w-full bg-transparent h-full focus:outline-none border-0 p-2 ml-1' name='search' id='search-input' />
-          <div className="flex p-1 border h-full border-gray-100  items-center justify-center">
+          <div className="flex p-1   h-full   items-center justify-center">
             <button className="text-center px-2  hover:text-cyan-300 focus:text-cyan-400">Filter</button>
-            <button className="text-center pl-2 border-l border-gray-100 hover:text-cyan-300 focus:text-cyan-400">Sort</button>
+            <button className="text-center pl-2 hover:text-cyan-300 focus:text-cyan-400">Sort</button>
           </div>
-        </div>
+        </div> */}
         <ul className="flex items-center">
           {
             loggedIn && <>

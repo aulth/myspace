@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Items from '../components/Items'
+import LandingPage from '../components/LandingPage';
 import MobileNavbar from '../components/MobileNavbar';
 import Navbar from '../components/Navbar'
 // import Search from '../components/Search'
@@ -14,8 +15,7 @@ export default function Home({allItems, msg}) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-       <Navbar/>
-       {/* <Search/> */}
+        <LandingPage/>
        <Items allItems={allItems} msg={msg}/>
        <MobileNavbar/>
       </main>
