@@ -40,30 +40,30 @@ const MobileNavbar = () => {
             }
             {/* <div className="w-full flex md:hidden justify-between items-center p-2 border-box fixed bottom-0 bg-gray-500 rounded-tl rounded-tr gm">
                 <div className="flex w-1/4 items-center justify-center">
-                    <Link href={'/'} ><AiOutlineHome onClick={()=>{setisSearchOpen(false)}} className={`text-[24px] cursor-pointer hover:text-cyan-500 ${isHome?'text-cyan-500 font-semibold':'text-black'} `} /></Link>
+                    <Link href={'/'} ><AiOutlineHome onClick={()=>{setisSearchOpen(false)}} className={`text-[24px] cursor-pointer hover:text-blue-500 ${isHome?'text-blue-500 font-semibold':'text-black'} `} /></Link>
                 </div>
                 <div className="flex w-1/4 items-center justify-center">
-                    <AiOutlineSearch  onClick={toggleSearch} className={`text-[24px] cursor-pointer hover:text-cyan-500 ${isSearchOpen?'text-cyan-500 font-semibold':'text-black'} ` } />
+                    <AiOutlineSearch  onClick={toggleSearch} className={`text-[24px] cursor-pointer hover:text-blue-500 ${isSearchOpen?'text-blue-500 font-semibold':'text-black'} ` } />
                 </div>
                 <div className="flex w-1/4 items-center justify-center">
-                    <MdOutlineBookmarkBorder className="text-[24px] cursor-pointer hover:text-cyan-500" />
+                    <MdOutlineBookmarkBorder className="text-[24px] cursor-pointer hover:text-blue-500" />
                 </div>
                 <div className="flex w-1/4 items-center justify-center">
-                    <Link href={"/user"} ><MdOutlineAccountCircle  onClick={()=>{setisSearchOpen(false)}}   className={`text-[24px] cursor-pointer hover:text-cyan-500 ${isAccount?'text-cyan-500 font-semibold':'text-black'} `} /></Link>
+                    <Link href={"/user"} ><MdOutlineAccountCircle  onClick={()=>{setisSearchOpen(false)}}   className={`text-[24px] cursor-pointer hover:text-blue-500 ${isAccount?'text-blue-500 font-semibold':'text-black'} `} /></Link>
                 </div>
             </div> */}
             <div className="w-full flex md:hidden justify-between items-center p-2 border-box fixed bottom-0 bg-gray-500 rounded-tl rounded-tr gm">
                 <div className="flex w-1/4 items-center justify-center">
-                    <Link href={'/'} ><a><AiOutlineHome onClick={()=>{setisSearchOpen(false)}} className={`text-[24px] cursor-pointer hover:text-cyan-500 ${isHome?'text-cyan-500 font-semibold':'text-black'} `} /></a></Link>
+                    <Link href={'/'} ><a><AiOutlineHome onClick={()=>{setisSearchOpen(false)}} className={`text-[24px] cursor-pointer hover:text-blue-500 ${isHome?'text-blue-500 font-semibold':'text-black'} `} /></a></Link>
                 </div>
                 <div className="flex w-1/4 items-center justify-center">
-                    <AiOutlineSearch  onClick={toggleSearch} className={`text-[24px] cursor-pointer hover:text-cyan-500 ${isSearchOpen?'text-cyan-500 font-semibold':'text-black'} ` } />
+                    <AiOutlineSearch  onClick={toggleSearch} className={`text-[24px] cursor-pointer hover:text-blue-500 ${isSearchOpen?'text-blue-500 font-semibold':'text-black'} ` } />
                 </div>
                 <div className="flex w-1/4 items-center justify-center">
-                    <MdOutlineBookmarkBorder className="text-[24px] cursor-pointer hover:text-cyan-500" />
+                    <MdOutlineBookmarkBorder className="text-[24px] cursor-pointer hover:text-blue-500" />
                 </div>
                 <div className="flex w-1/4 items-center justify-center">
-                    <Link href={"/user"} ><a><MdOutlineAccountCircle  onClick={()=>{setisSearchOpen(false)}}   className={`text-[24px] cursor-pointer hover:text-cyan-500 ${isAccount?'text-cyan-500 font-semibold':'text-black'} `} /></a></Link>
+                    <Link href={"/user"} ><a><MdOutlineAccountCircle  onClick={()=>{setisSearchOpen(false)}}   className={`text-[24px] cursor-pointer hover:text-blue-500 ${isAccount?'text-blue-500 font-semibold':'text-black'} `} /></a></Link>
                 </div>
             </div>
 

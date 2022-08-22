@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {useRouter} from 'next/router'
 import MobileNavbar from '../components/MobileNavbar'
+import AdminItem from '../components/AdminItem'
 const User = () => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [editWindowOpen, setEditWindowOpen] = useState(false)
@@ -123,11 +124,19 @@ const User = () => {
                         loggedIn && <>
                             {
                                 !editWindowOpen && user.name && <>
-                                    <button onClick={openCloseEditWindow} className='absolute top-1 right-1 flex items-center z-10 bg-cyan-400 p-1 rounded-sm text-sm text-white'>Edit <MdOutlineEdit className='text-lg' /> </button>
+                                    <button onClick={openCloseEditWindow} className='absolute top-1 right-1 flex items-center z-10 bg-blue-400 p-1 rounded-sm text-sm text-white'>Edit <MdOutlineEdit className='text-lg' /> </button>
                                     <img src={user.photo} className="w-[60px] h-[60px] mt-2 rounded-full" alt="" />
                                     <h2 className="text-lg font-semibold mt-2">{user.name}</h2>
                                     <h4>{user.email}</h4>
                                 </>
+                            }
+                            {
+                                !editWindowOpen && !user.name && <>
+                                <button   className='absolute  skelton w-[60px] h-[20px] top-1 right-1 flex items-center z-10 bg-gradient-to-r from-gray-300 to-gray-100 p-1 rounded-sm text-sm '> </button>
+                                <div  className="w-[60px] skelton  bg-gradient-to-r from-gray-300 to-gray-100 h-[60px] mt-2 rounded-full" alt="" />
+                                <div className=" mt-2 skelton w-[200px] h-[20px] bg-gradient-to-r from-gray-300 to-gray-100"></div>
+                                <div className='w-[300px] skelton h-[20px] my-2 bg-gray-200'></div>
+                            </>
                             }
                             {
                                 editWindowOpen && <>
@@ -158,7 +167,7 @@ const User = () => {
                                             </button>
 
                                         </div>
-                                        <button className='absolute top-1 right-1 flex items-center z-10 bg-cyan-400 p-1 rounded-sm text-sm text-white'>Save <MdOutlineSave className='text-lg' /> </button>
+                                        <button className='absolute top-1 right-1 flex items-center z-10 bg-blue-400 p-1 rounded-sm text-sm text-white'>Save <MdOutlineSave className='text-lg' /> </button>
 
                                     </form>
                                 </>
@@ -169,13 +178,16 @@ const User = () => {
                 </div>
                 {
                     loggedIn && <>
-                    <div className="w-full rounded border border-gray-300 mt-2">
+                    <div className="w-full mt-2 flex flex-wrap">
                     {
-                        items  && <Items allItems={items} />
-                    }{
+                        items && items.map((item, index)=>{
+                            return <AdminItem key={index} item={item} />
+                        })
+                    }
+                    {
                         !items && <>
                         <h2 className='text-center font-semibold'>{msg}</h2>
-                        <Link href={"/add"}><h3 className='text-center text-sm text-cyan-500 cursor-pointer hover:text-cyan-600 font-semibold'>List your first item</h3></Link>
+                        <Link href={"/add"}><h3 className='text-center text-sm text-blue-500 cursor-pointer hover:text-blue-600 font-semibold'>List your first item</h3></Link>
                         </>
                     }
                 </div>

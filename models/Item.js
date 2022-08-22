@@ -13,10 +13,13 @@ const ItemSchema  = new mongoose.Schema({
     furnished:Boolean,
     electricyincluded:Boolean,
     ac:Boolean,
+    available:Boolean,
     floor:String,
     photo:Array,
     email:String,
 
+},{
+    timestamps:true
 })
 
 mongoose.models={};

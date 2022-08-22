@@ -8,6 +8,7 @@ const postLogin = async (req, res)=>{
         return res.json({success:false, msg:"Method not allowed"})
     }
     let {id, password} = JSON.parse(req.body);
+    console.log(id, password)
     id = id.toLowerCase();
     let user = await User.findOne({$or:[{'email':id}, {'phone':+id}]});
     if(user){

@@ -42,14 +42,6 @@ const Navbar = () => {
       <ToastContainer position='top-right' />
       <div className="w-full flex items-center justify-between box-border p-2">
         <Link href={'/'}><img src='/images/logo.png' className='w-[130px] cursor-pointer' /></Link>
-        {/* <div className="md:w-3/4 mx-4  gm md:flex hidden items-center pl-1 rounded" id='search-box'>
-          <img src="https://img.icons8.com/ios/50/000000/search--v1.png" className='w-[20px]' alt="" />
-          <input type="search" placeholder='Search here..' className='w-full bg-transparent h-full focus:outline-none border-0 p-2 ml-1' name='search' id='search-input' />
-          <div className="flex p-1   h-full   items-center justify-center">
-            <button className="text-center px-2  hover:text-cyan-300 focus:text-cyan-400">Filter</button>
-            <button className="text-center pl-2 hover:text-cyan-300 focus:text-cyan-400">Sort</button>
-          </div>
-        </div> */}
         <ul className="flex items-center">
           {
             loggedIn && <>
@@ -58,18 +50,18 @@ const Navbar = () => {
                 <div id='myaccount' className="border  flex-col gm z-10 hidden bg-white  items-start w-[120px] border-gray-300 p-1 rounded-sm absolute right-0 top-[42px]">
                   <div className="w-full">
                     <Link href={'/user'} >
-                      <div className="w-full border-b  flex items-center border-gray-300 hover:text-cyan-500">
+                      <div className="w-full border-b  flex items-center border-gray-300 hover:text-blue-500">
                         <MdOutlineAccountCircle className="text-lg" />
                         <button className='ml-1'>My Account</button>
                       </div>
                     </Link>
                     <Link href={'/add'} >
-                      <div className="w-full border-b  flex items-center border-gray-300 hover:text-cyan-500">
+                      <div className="w-full border-b  flex items-center border-gray-300 hover:text-blue-500">
                         <MdOutlineAccountCircle className="text-lg" />
                         <button className='ml-1'>Add Item </button>
                       </div>
                     </Link>
-                    <div className="w-full border-b  flex items-center border-gray-300 hover:text-cyan-500">
+                    <div className="w-full border-b  flex items-center border-gray-300 hover:text-blue-500">
                       <MdOutlineAccountCircle className="text-lg" />
                       <button className='ml-1' onClick={handleOnLogout}>Logout</button>
                     </div>
@@ -80,7 +72,7 @@ const Navbar = () => {
             </>
           }
           {
-            !loggedIn && <Link href={"/login"}><li className='mx-1 hover:text-white font-semibold cursor-pointer'>Login</li></Link>
+            !loggedIn && <Link href={"/login"}><li className='mx-1   px-1 py-1 rounded font-bold cursor-pointer'><img src="https://img.icons8.com/ios/50/000000/login-rounded-right--v1.png" className='w-[20px]' alt="" /></li></Link>
           }
         </ul>
       </div>

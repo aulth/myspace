@@ -23,7 +23,7 @@ const getSingleItem = ({success, item, msg}) => {
 }
 export async function getServerSideProps(context){
     const {slug} = context.query;
-    const mongodburl="mongodb+srv://usman:admin@cluster0.ikgks.mongodb.net/Panda?retryWrites=true&w=majority"
+    const mongodburl=process.env.mongodburl
     const db = await mongoose.connect(mongodburl);
     if(db.connections[0].readyState){
       let item = await Item.findOne({url:slug})

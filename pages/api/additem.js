@@ -24,6 +24,7 @@ const addItem = async (req, res) => {
         if(!user){
             return res.json({success:false, msg:"User not authenticated"})
         }
+        let available=true;
         let item =await Item.create({
             title,
             name,
@@ -40,7 +41,8 @@ const addItem = async (req, res) => {
             floor,
             photo,
             itemid,
-            email
+            email,
+            available,
         })
         if (item) {
             return res.json({ success: true, msg: 'Item added succesfully'})

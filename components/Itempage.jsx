@@ -114,8 +114,8 @@ const Itempage = ({ item }) => {
                         </tbody>
                     </table>
                     <div className="w-full flex text-lg mt-2">
-                        <button className="w-full py-1 px-2 bg-cyan-400 hover:bg-cyan-500 rounded text-white">Contact to Broker</button>
-                        <button onClick={handleOnShare} className="py-1 px-2 ml-1 bg-cyan-400 hover:bg-cyan-500 rounded text-white"><FaShareAlt /></button>
+                        <button className="w-full py-1 px-2 bg-blue-400 hover:bg-blue-500 rounded text-white">Contact to Broker</button>
+                        <button onClick={handleOnShare} className="py-1 px-2 ml-1 bg-blue-400 hover:bg-blue-500 rounded text-white"><FaShareAlt /></button>
                     </div>
                 </div>
             </div>
