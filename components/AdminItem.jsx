@@ -6,6 +6,7 @@ import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai'
 import {useRouter} from 'next/router'
 const AdminItem = ({ item }) => {
     const router = useRouter()
+    const [available, setAvailable] = useState(item.available?true:false)
     const [deleteItem, setDeleteItem] = useState('Delete')
     const handleOnDelete = async(id)=>{
         if(typeof window!=='undefined'){
@@ -28,11 +29,24 @@ const AdminItem = ({ item }) => {
             document.getElementById(id).style.display='none'
         }
     }
-    const handleOnUnavailable = ()=>{
-
-    }
-    const handleOnAvailable = ()=>{
-
+    const handleOnStatusUpdate = async (id, available)=>{
+        if(typeof window!=='undefined'){
+            if(!localStorage.getItem('ms-authtoken')){
+                toast.info("Please login and retry");
+                return
+            }
+            const response = await fetch('/api/changestatus', {
+                method:'POST',
+                body:JSON.stringify({authtoken:localStorage.getItem('ms-authtoken'), id:id, available:available})
+            })
+            const data = await response.json();
+            if(data.success){
+                toast.success(data.msg)
+                setAvailable(available)
+            }else{
+                toast.error(data.msg)
+            }
+        }
     }
     return (
         <>
@@ -50,10 +64,10 @@ const AdminItem = ({ item }) => {
                     </div>
                     <div className="ml-8 text-sm flex flex-col ">
                         <div className="flex items-center">
-                            <input type="checkbox" onChange={handleOnAvailable} checked={true} className="cursor-pointer" /><button className='ml-1'>Available</button>
+                            <input type="checkbox" onChange={()=>{handleOnStatusUpdate(item._id, true)}} checked={available?true:false} className="cursor-pointer" /><button className='ml-1'>Available</button>
                         </div>
                         <div className="flex items-center">
-                            <input type="checkbox" onChange={handleOnUnavailable} checked={false} className="cursor-pointer" /><button className='ml-1'>Unavailable</button>
+                            <input type="checkbox" onChange={()=>{handleOnStatusUpdate(item._id, false)}} checked={available?false:true} className="cursor-pointer" /><button className='ml-1'>Unavailable</button>
                         </div>
                         <div className="flex items-center w-full justify-start hover:text-blue-500">
                             <AiOutlineDelete className='-ml-[1px]' />

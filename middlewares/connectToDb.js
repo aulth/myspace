@@ -1,11 +1,12 @@
 import mongoose from 'mongoose'
 const connection = {};
+let mongodburl = process.env.mongodburl
 const connectToDb = async ()=>{
     if(connection.isConnected){
         console.log("Using existed connection")
         return connection.isConnected;
     }
-    const db = await mongoose.connect(process.env.mongodburl)
+    const db = await mongoose.connect(`${mongodburl}`)
     connection.isConnected = db.connections[0].readyState;
 
 }
