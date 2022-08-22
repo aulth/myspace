@@ -11,7 +11,7 @@ const ItemSchema  = new mongoose.Schema({
     rent:Number,
     category:String,
     furnished:Boolean,
-    electricyincluded:Boolean,
+    electricityincluded:Boolean,
     ac:Boolean,
     available:Boolean,
     floor:String,
