@@ -3,12 +3,12 @@ import Navbar from '../components/Navbar'
 import { MdOutlineEdit, MdOutlineSave, MdOutlineFileUpload } from 'react-icons/md'
 import Items from '../components/Items'
 import {AiOutlineEye, AiOutlineEyeInvisible} from 'react-icons/ai'
-import Link from 'next/link'
+import Link from 'next/link';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {useRouter} from 'next/router'
-import MobileNavbar from '../components/MobileNavbar'
-import AdminItem from '../components/AdminItem'
+import {useRouter} from 'next/router';
+import MobileNavbar from '../components/MobileNavbar';
+import AdminItem from '../components/AdminItem';
 const User = () => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [editWindowOpen, setEditWindowOpen] = useState(false)
@@ -114,7 +114,11 @@ const User = () => {
             }
         }
     }
-   
+   const collectIpAndGeolocation = ()=>{
+    if(typeof window!=='undefined'){
+        
+    }
+   }
     return (
         <>
             <Navbar />
@@ -166,10 +170,8 @@ const User = () => {
                                                     showPassword && <AiOutlineEyeInvisible className='text-xl mx-1 cursor-pointer  ' onClick={showHidePassword} />
                                                 }
                                             </button>
-
                                         </div>
                                         <button className='absolute top-1 right-1 flex items-center z-10 bg-blue-400 p-1 rounded-sm text-sm text-white'>Save <MdOutlineSave className='text-lg' /> </button>
-
                                     </form>
                                 </>
                             }
@@ -186,9 +188,10 @@ const User = () => {
                         })
                     }
                     {
-                        !items && <>
-                        <h2 className='text-center font-semibold'>{msg}</h2>
-                        <Link href={"/add"}><h3 className='text-center text-sm text-blue-500 cursor-pointer hover:text-blue-600 font-semibold'>List your first item</h3></Link>
+                        items.length<0 && <>
+                        <div className="w-full flex justify-center items-center p-2 text-blue-400 text-[#232323]">
+                            <Link href={"/add"}>List your first item..</Link>
+                        </div>
                         </>
                     }
                 </div>

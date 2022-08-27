@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Navbar from './Navbar'
 import { MdOutlineChevronRight, MdOutlineChevronLeft } from 'react-icons/md'
 import { FaShareAlt } from 'react-icons/fa'
-import Head from 'next/head'
+import Head from 'next/head';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const Itempage = ({ item }) => {
