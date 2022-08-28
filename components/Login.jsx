@@ -5,6 +5,8 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 import { ToastContainer, toast } from 'react-toastify';
+import {CgProfile} from 'react-icons/cg'
+import {RiLockPasswordLine} from 'react-icons/ri'
 import 'react-toastify/dist/ReactToastify.css';
 const Login = () => {
     const router = useRouter();
@@ -71,7 +73,7 @@ const Login = () => {
         <>
             <Navbar />
             <ToastContainer position='top-right' />
-            <div style={{ height: 'calc(100vh - 44px)' }} className="w-full flex justify-center md:items-center items-start md:p-0 p-2 ">
+            {/* <div style={{ height: 'calc(100vh - 44px)' }} className="w-full flex justify-center md:items-center items-start md:p-0 p-2 ">
                 <form onSubmit={handleOnSubmit} className='md:w-[400px] w-full flex flex-col items-center border border-gray-300 rounded p-2'>
                     <h2 className="text-xl text-blue-400 my-2 font-semibold">Login as broker</h2>
                     <div className='flex items-center border border-gray-400 w-full rounded p-1 my-1'>
@@ -103,6 +105,44 @@ const Login = () => {
                         <Link href={'/signup'}><button className="px-2 py-1 text-orange-400 hover:text-orange-300">Create an account</button></Link>
                     </div>
                 </form>
+            </div> */}
+            <div style={{minHeght:'calc(100vh - 50px)'}} className="w-full flex justify-cente items-center">
+                <div className="w-full flex justify-center items-center">
+                    <form onSubmit={handleOnSubmit}  className="md:w-[400px] w-full p-3  flex flex-col justify-center items-center">
+                        <div className="w-full flex flex-col justify-center items-center">
+                            <img src="/images/logo.png" className='w-[150px]' alt="" />
+                            <h2 className="text-2xl font-bold">Login to mySpace</h2>
+                        </div>
+                        <div className="w-full my-2 mt-4 border border-gray-200 rounded flex justify-center items-center">
+                            <CgProfile className='text-xl ml-1' />
+                            <input type="text" name='id'  onChange={handleOnChange}   placeholder='Email or phone number' className="w-full focus:outline-none p-1 border-none" />
+                        </div>
+                        <div className="w-full my-2 border border-gray-200 rounded flex justify-center items-center">
+                            <RiLockPasswordLine className='text-xl ml-1' />
+                            <input type="password" name='password'  onChange={handleOnChange}  id='password-input' placeholder='Password' className="w-full focus:outline-none p-1 border-none" />
+                            <button type='button' >
+                            {
+                                !showPassword && <AiOutlineEye className='text-xl mx-1 cursor-pointer  ' onClick={showHidePassword} />
+                            }
+                            {
+                                showPassword && <AiOutlineEyeInvisible className='text-xl mx-1 cursor-pointer  ' onClick={showHidePassword} />
+                            }
+                        </button>
+                        </div>
+                        <div className="w-full my-2 border border-gray-200 rounded flex justify-center items-center">
+                            {
+                                !logging && <input type="submit" value="Login " placeholder='Password' className="w-full font-semibold text-white hover:bg-blue-500 cursor-pointer bg-blue-400 focus:outline-none p-1 border-none" />
+                            }
+                            {
+                                logging && <button  className="w-full font-semibold text-white hover:bg-blue-500 cursor-pointer bg-blue-400 focus:outline-none p-1 border-none" ></button>
+                            }
+                        </div>
+                        <div className="w-full my-2 rounded flex justify-center md:flex-row flex-col items-center">
+                        <Link href={'/signup'}><button className="text-md font-semibold hover:text-blue-400 cursor-pointer ">Create an account</button></Link>
+                        <Link href={'/forgot-password'}><h2 className="text-md font-semibold hover:text-blue-400 cursor-pointer md:ml-2">Forgot Password</h2></Link>
+                        </div>
+                    </form>
+                </div>
             </div>
         </>
     )
