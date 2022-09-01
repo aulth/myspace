@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar'
+import Head from 'next/head'
 import { MdOutlineEdit, MdOutlineSave, MdOutlineFileUpload } from 'react-icons/md'
 import Items from '../components/Items'
-import {AiOutlineEye, AiOutlineEyeInvisible} from 'react-icons/ai'
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 import Link from 'next/link';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 import MobileNavbar from '../components/MobileNavbar';
 import AdminItem from '../components/AdminItem';
 const User = () => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [editWindowOpen, setEditWindowOpen] = useState(false)
+    const [uploading, setUploading] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
-    const [user, setUser] = useState({ name: '', photo: '', email: '', authtoken: '', password:'' });
+    const [user, setUser] = useState({ name: '', photo: '', email: '', authtoken: '', password: '' });
     const [items, setItems] = useState([])
     const [msg, setMsg] = useState('')
     const router = useRouter();
@@ -24,30 +26,30 @@ const User = () => {
                 body: JSON.stringify({ authtoken: localStorage.getItem('ms-authtoken') })
             })
             let data = await response.json()
-            setUser({ ...user, name: data.user.name, photo: data.user.photo, email: data.user.email, password:data.user.password,  authtoken: localStorage.getItem('ms-authtoken') })
+            setUser({ ...user, name: data.user.name, photo: data.user.photo, email: data.user.email, password: data.user.password, authtoken: localStorage.getItem('ms-authtoken') })
         }
     }
-    const fetchItems = async ()=>{
-        if(typeof window!=='undefined'){
+    const fetchItems = async () => {
+        if (typeof window !== 'undefined') {
             const response = await fetch("/api/getuseritem", {
-                method:"POST",
-                body:JSON.stringify({authtoken:localStorage.getItem('ms-authtoken')})
+                method: "POST",
+                body: JSON.stringify({ authtoken: localStorage.getItem('ms-authtoken') })
             })
             const data = await response.json();
-            if(data.success){
+            if (data.success) {
                 setItems(data.item)
-            }else{
+            } else {
                 setMsg(data.msg)
             }
         }
     }
     useEffect(() => {
-        if (typeof window !== 'undefined'){
-            if(localStorage.getItem('ms-authtoken')){
+        if (typeof window !== 'undefined') {
+            if (localStorage.getItem('ms-authtoken')) {
                 setLoggedIn(true);
                 fetchUser();
                 fetchItems();
-            }else{
+            } else {
                 router.push('/')
             }
         }
@@ -69,6 +71,7 @@ const User = () => {
         let photoInput = document.getElementById('user-photo-input');
         const files = photoInput.files;
         try {
+            setUploading(true)
             let data = new FormData();
             data.append('file', files[0]);
             data.append('upload_preset', 'myspaceprofile');
@@ -77,7 +80,8 @@ const User = () => {
                 body: data
             })
             const file = await response.json();
-            setUser({ ...user, photo: file.url })
+            setUser({ ...user, photo: file.url });
+            setUploading(false)
         } catch (error) {
             alert(error.msg)
         }
@@ -98,31 +102,36 @@ const User = () => {
             localStorage.setItem('ms-authtoken', data.user.authtoken)
             toast.success("Update Success")
             openCloseEditWindow()
-        }else{
+        } else {
             toast.error(data.msg)
         }
     }
-    const showHidePassword = ()=>{
-        if(typeof window!=='undefined'){
-            let elem =document.getElementById('password-input');
-            if(elem.type == 'password'){
+    const showHidePassword = () => {
+        if (typeof window !== 'undefined') {
+            let elem = document.getElementById('password-input');
+            if (elem.type == 'password') {
                 elem.type = 'text'
                 setShowPassword(true)
-            }else{
+            } else {
                 elem.type = 'password'
                 setShowPassword(false)
             }
         }
     }
-   const collectIpAndGeolocation = ()=>{
-    if(typeof window!=='undefined'){
-        
+    const collectIpAndGeolocation = () => {
+        if (typeof window !== 'undefined') {
+
+        }
     }
-   }
     return (
         <>
+            <Head>
+                <title>{user.name}</title>
+                <meta name="description" content="Initial" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
             <Navbar />
-            <ToastContainer position='top-right'/>
+            <ToastContainer position='top-right' />
             <div className="w-full rounded flex flex-col items-center md:p-2 p-1 ">
                 <div className="w-full flex flex-col items-center mt-3 border border-gray-300 rounded relative">
                     {
@@ -137,18 +146,27 @@ const User = () => {
                             }
                             {
                                 !editWindowOpen && !user.name && <>
-                                <button   className='absolute  skelton w-[60px] h-[20px] top-1 right-1 flex items-center z-10 bg-gradient-to-r from-gray-300 to-gray-100 p-1 rounded-sm text-sm '> </button>
-                                <div  className="w-[60px] skelton  bg-gradient-to-r from-gray-300 to-gray-100 h-[60px] mt-2 rounded-full" alt="" />
-                                <div className=" mt-2 skelton w-[200px] h-[20px] bg-gradient-to-r from-gray-300 to-gray-100"></div>
-                                <div className='w-[300px] skelton h-[20px] my-2 bg-gray-200'></div>
-                            </>
+                                    <button className='absolute  skelton w-[60px] h-[20px] top-1 right-1 flex items-center z-10 bg-gradient-to-r from-gray-300 to-gray-100 p-1 rounded-sm text-sm '> </button>
+                                    <div className="w-[60px] skelton  bg-gradient-to-r from-gray-300 to-gray-100 h-[60px] mt-2 rounded-full" alt="" />
+                                    <div className=" mt-2 skelton w-[200px] h-[20px] bg-gradient-to-r from-gray-300 to-gray-100"></div>
+                                    <div className='w-[300px] skelton h-[20px] my-2 bg-gray-200'></div>
+                                </>
                             }
                             {
                                 editWindowOpen && <>
                                     <form onSubmit={handleOnSave} className="gm w-full gm flex flex-col items-center">
                                         <div className="m-auto relative flex flex-col items-center justify-center">
                                             <img src={user.photo} onClick={uploadImageTrigger} className="w-[60px] h-[60px] mt-2 rounded-full cursor-pointer opacity-60 hover:opacity-75" alt="" />
-                                            <MdOutlineFileUpload onClick={uploadImageTrigger} className=' cursor-pointer absolute text-2xl mt-2' />
+                                            {
+                                                !uploading && <MdOutlineFileUpload onClick={uploadImageTrigger} className=' cursor-pointer absolute text-2xl mt-2' />
+                                            }
+
+                                            {
+                                                uploading && <>
+                                                    <img src="/images/uploadgif.gif" className='cursor-pointer absolute text-2xl mt-2 w-[24px] h-[24px]' alt="" />
+
+                                                </>
+                                            }
                                         </div>
                                         <div className=" flex md:w-[250px] w-full m-auto items-center border border-gray-300 px-1 rounded my-1 mt-3">
                                             <input onChange={uploadImage} type="file" name="photo" id="user-photo-input" hidden />
@@ -181,24 +199,24 @@ const User = () => {
                 </div>
                 {
                     loggedIn && <>
-                    <div className="w-full mt-2 flex flex-wrap">
-                    {
-                        items && items.map((item, index)=>{
-                            return <AdminItem key={index} item={item} />
-                        })
-                    }
-                    {
-                        items.length<0 && <>
-                        <div className="w-full flex justify-center items-center p-2 text-blue-400 text-[#232323]">
-                            <Link href={"/add"}>List your first item..</Link>
+                        <div className="w-full mt-2 flex flex-wrap">
+                            {
+                                items && items.map((item, index) => {
+                                    return <AdminItem key={index} item={item} />
+                                })
+                            }
+                            {
+                                items.length < 0 && <>
+                                    <div className="w-full flex justify-center items-center p-2 text-blue-400 text-[#232323]">
+                                        <Link href={"/add"}>List your first item..</Link>
+                                    </div>
+                                </>
+                            }
                         </div>
-                        </>
-                    }
-                </div>
                     </>
                 }
             </div>
-            <MobileNavbar/>
+            <MobileNavbar />
         </>
     )
 }

@@ -73,39 +73,6 @@ const Login = () => {
         <>
             <Navbar />
             <ToastContainer position='top-right' />
-            {/* <div style={{ height: 'calc(100vh - 44px)' }} className="w-full flex justify-center md:items-center items-start md:p-0 p-2 ">
-                <form onSubmit={handleOnSubmit} className='md:w-[400px] w-full flex flex-col items-center border border-gray-300 rounded p-2'>
-                    <h2 className="text-xl text-blue-400 my-2 font-semibold">Login as broker</h2>
-                    <div className='flex items-center border border-gray-400 w-full rounded p-1 my-1'>
-                        <img src="https://img.icons8.com/material-sharp/24/000000/phone.png" className='w-[20px]' alt="" />
-                        <input name='id' onChange={handleOnChange} type="text" className='border-0 bg-transparent focus:outline-none w-full pl-1' placeholder='Enter email or phone' />
-                    </div>
-                    <div className='flex items-center border border-gray-400 w-full rounded p-1 my-1'>
-                        <img src="https://img.icons8.com/ios-glyphs/30/000000/password--v1.png" className='w-[20px]' alt="" />
-                        <input type="password" id='password-input' onChange={handleOnChange} name='password' className='border-0 bg-transparent focus:outline-none w-full pl-1' placeholder='Password' />
-                        <button type='button' >
-                            {
-                                !showPassword && <AiOutlineEye className='text-xl mx-1 cursor-pointer  ' onClick={showHidePassword} />
-                            }
-                            {
-                                showPassword && <AiOutlineEyeInvisible className='text-xl mx-1 cursor-pointer  ' onClick={showHidePassword} />
-                            }
-                        </button>
-                    </div>
-                    <div className="w-full flex justify-center">
-                        {
-                            !logging && <button className="px-2 py-1 bg-blue-300 focus:bg-blue-400 text-lg my-2 rounded text-white">Login</button>
-                        }
-                        {
-                            logging && <button className="px-2 py-1 bg-blue-300 focus:bg-blue-400 text-lg my-2 rounded text-white"><Spinner /></button>
-                        }
-                    </div>
-                    <div className="w-full flex items-center justify-center text-sm">
-                        <Link href={'/forgot-password'}><button className=''>Forgot Password?</button></Link>
-                        <Link href={'/signup'}><button className="px-2 py-1 text-orange-400 hover:text-orange-300">Create an account</button></Link>
-                    </div>
-                </form>
-            </div> */}
             <div style={{minHeght:'calc(100vh - 50px)'}} className="w-full flex justify-cente items-center">
                 <div className="w-full flex justify-center items-center">
                     <form onSubmit={handleOnSubmit}  className="md:w-[400px] w-full p-3  flex flex-col justify-center items-center">
@@ -133,8 +100,12 @@ const Login = () => {
                             {
                                 !logging && <input type="submit" value="Login " placeholder='Password' className="w-full font-semibold text-white hover:bg-blue-500 cursor-pointer bg-blue-400 focus:outline-none p-1 border-none" />
                             }
+                        </div>
+                        <div className="w-full my-2 border border-gray-200 rounded flex justify-center items-center">
                             {
-                                logging && <button  className="w-full font-semibold text-white hover:bg-blue-500 cursor-pointer bg-blue-400 focus:outline-none p-1 border-none" ></button>
+                                logging && <button  className="text-md font-semibold hover:text-blue-400 cursor-pointer " >
+                                    <Spinner />
+                                </button>
                             }
                         </div>
                         <div className="w-full my-2 rounded flex justify-center md:flex-row flex-col items-center">

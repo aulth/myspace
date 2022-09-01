@@ -4,6 +4,10 @@ import Spinner from './Spinner'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
+import {CgProfile} from 'react-icons/cg'
+import {RiLockPasswordLine} from 'react-icons/ri'
+import {HiOutlineMail} from 'react-icons/hi'
+import {FiPhone} from 'react-icons/fi'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BiCamera } from 'react-icons/bi'
@@ -66,6 +70,7 @@ const Signup = () => {
                 body: JSON.stringify({ name: user.name, email: user.email, phone: user.phone, password: user.password, photo: user.photo })
             })
             const data = await response.json();
+            console.log(data)
             if (data.success) {
                 localStorage.setItem('ms-userid', data.userid);
                 localStorage.setItem('ms-authtoken', data.authtoken);
@@ -98,7 +103,7 @@ const Signup = () => {
         <>
             <Navbar />
             <ToastContainer position='top-right' />
-            <div style={{ height: 'calc(100vh - 44px)' }} className="w-full flex justify-center md:items-center items-start md:p-0 p-2 ">
+            {/* <div style={{ height: 'calc(100vh - 44px)' }} className="w-full flex justify-center md:items-center items-start md:p-0 p-2 ">
                 <form onSubmit={handleOnSubmit} className='md:w-[400px] w-full flex flex-col items-center border border-gray-300 rounded p-2'>
                     {
                         user.photo && <><div className="m-auto w-[50px] relative flex items-center justify-center">
@@ -154,6 +159,74 @@ const Signup = () => {
                         <Link href={'/login'}><button className="px-2 py-1 text-orange-400 hover:text-orange-300">Login</button></Link>
                     </div>
                 </form>
+            </div> */}
+            <div style={{minHeght:'calc(100vh - 50px)'}} className="w-full flex justify-cente items-center">
+                <div className="w-full flex justify-center items-center">
+                    <form onSubmit={handleOnSubmit}  className="md:w-[400px] w-full p-3  flex flex-col justify-center items-center">
+                    {
+                        user.photo && <><div className="m-auto w-[50px] relative flex items-center justify-center">
+                            <img src={user.photo} className=' rounded-full mt-2' alt="" />
+                            {
+                                !uploading && <BiCamera onClick={triggerProfilePhoto} className='absolute text-2xl p-1 bg-white hover:bg-[#232323] hover:text-white cursor-pointer border border-gray-400 -bottom-1 -right-1 rounded-full' />
+                            }
+                            {
+                                uploading && <div className='absolute w-6 flex justify-center items-center text-2xl p-1 cursor-pointer border bg-white border-gray-400 -bottom-1 -right-1 rounded-full'>
+                                    <img src="/images/uploadgif.gif" className='' alt="" />
+                                </div>
+                            }
+
+                        </div>
+                        </>
+                    }
+                        <div className="w-full flex flex-col justify-center items-center">
+                            {
+                                !user.photo && <img src="/images/logo.png" className='w-[150px]' alt="" />
+                            }
+                            <h2 className="text-2xl font-bold mt-2">Create an account</h2>
+                        </div>
+                        <div className="w-full my-2 border border-gray-200 rounded flex justify-center items-center">
+                            <CgProfile className='text-xl mx-1' />
+                            <input type="text" name='name'  onChange={handleOnChange}   placeholder='Email or phone number' className="w-full focus:outline-none p-1 border-none" />
+                        </div>
+                        <div className="w-full my-2 border border-gray-200 rounded flex justify-center items-center">
+                            <HiOutlineMail className='text-xl mx-1' />
+                            <input type="email" name='email'  onChange={handleOnChange}   placeholder='Email or phone number' className="w-full focus:outline-none p-1 border-none" />
+                        </div>
+                        <div className="w-full my-2 border border-gray-200 rounded flex justify-center items-center">
+                            <FiPhone className='text-xl mx-1' />
+                            <input type="tel" name='phone'  onChange={handleOnChange}   placeholder='Email or phone number' className="w-full focus:outline-none p-1 border-none" />
+                        </div>
+                    <input id='profile-upload' hidden type="file" name='image' title='Upload Profile Pic' onChange={handleOnImageUpload} />
+                        <div className="w-full my-2 border border-gray-200 rounded flex justify-center items-center">
+                            <RiLockPasswordLine className='text-xl mx-1' />
+                            <input type="password" name='password'  onChange={handleOnChange}  id='password-input' placeholder='Password' className="w-full focus:outline-none p-1 border-none" />
+                            <button type='button' >
+                            {
+                                !showPassword && <AiOutlineEye className='text-xl mx-1 cursor-pointer  ' onClick={showHidePassword} />
+                            }
+                            {
+                                showPassword && <AiOutlineEyeInvisible className='text-xl mx-1 cursor-pointer  ' onClick={showHidePassword} />
+                            }
+                        </button>
+                        </div>
+                        <div className="w-full my-2 border border-gray-200 rounded flex justify-center items-center">
+                            {
+                                !signingUp && <input type="submit" value="Signup " placeholder='Password' className="w-full font-semibold text-white hover:bg-blue-500 cursor-pointer bg-blue-400 focus:outline-none p-1 border-none" />
+                            }
+                        </div>
+                        <div className="w-full my-2 border border-gray-200 rounded flex justify-center items-center">
+                            {
+                                signingUp && <button  className="text-md font-semibold hover:text-blue-400 cursor-pointer " >
+                                    <Spinner />
+                                </button>
+                            }
+                        </div>
+                        <div className="w-full my-2 rounded flex justify-center md:flex-row flex-col items-center">
+                        <Link href={'/login'}><button className="text-md font-semibold hover:text-blue-400 cursor-pointer ">Already have an account?</button></Link>
+                        <Link href={'/forgot-password'}><h2 className="text-md font-semibold hover:text-blue-400 cursor-pointer md:ml-2">Forgot Password</h2></Link>
+                        </div>
+                    </form>
+                </div>
             </div>
         </>
     )

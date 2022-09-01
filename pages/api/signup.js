@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken'
 connectToDb();
 
 const postSignup = async (req, res) => {
+    console.log("Sign up api hitted")
     const JWTSECRET = "HELLO"
     try {
         if (req.method != 'POST') {
@@ -25,14 +26,16 @@ const postSignup = async (req, res) => {
             password: password,
             photo: photo
         })
+        console.log(user)
         if (user) {
             let authtoken = jwt.sign({ name: user.name, email: user.email, phone: user.phone, photo: user.photo, id: user._id }, JWTSECRET)
             return res.json({ success: true, msg: 'Signup succesfull', authtoken: authtoken, userid:user._id, name:user.name, email:user.email, photo:user.photo })
         }else{
             return res.json({success:false, msg:"Sign up failed"})
         }
+        
     } catch (error) {
-        return res.json({success:false, msg:error.msg})
+        return res.json({success:false, msg:"Sign up failed"})
     }
 }
 
