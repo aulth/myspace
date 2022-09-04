@@ -12,6 +12,7 @@ const ItemSchema  = new mongoose.Schema({
     category:String,
     furnished:Boolean,
     electricityincluded:Boolean,
+    waterincluded:Boolean,
     ac:Boolean,
     available:Boolean,
     floor:String,

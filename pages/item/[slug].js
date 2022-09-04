@@ -6,9 +6,6 @@ const getSingleItem = ({success, item, msg}) => {
   return (
     <>
     {
-      success && console.log(item)
-    }
-    {
       success && <>
       <Itempage item={item}/>
       </>

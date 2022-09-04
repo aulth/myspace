@@ -28,7 +28,7 @@ const Signup = () => {
         if (e.target.name == 'name') {
             setUser({ ...user, name: e.target.value, photo: `https://avatars.dicebear.com/api/initials/${e.target.value}.svg` })
         }
-        console.log(user)
+        // console.log(user)
     }
     const triggerProfilePhoto = () => {
         if (typeof window !== 'undefined') {
@@ -70,7 +70,7 @@ const Signup = () => {
                 body: JSON.stringify({ name: user.name, email: user.email, phone: user.phone, password: user.password, photo: user.photo })
             })
             const data = await response.json();
-            console.log(data)
+            // console.log(data)
             if (data.success) {
                 localStorage.setItem('ms-userid', data.userid);
                 localStorage.setItem('ms-authtoken', data.authtoken);

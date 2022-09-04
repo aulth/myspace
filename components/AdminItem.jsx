@@ -10,7 +10,7 @@ const AdminItem = ({ item }) => {
     const [editWindow, seteditWindow] = useState()
     const [editting, setEditting] = useState()
     const [uploading, setUploading] = useState()
-    const [itemData, setItemData] = useState({title:item.title, location:item.location, nearbyplace:item.nearbyplace, rent:item.rent, category:item.category, furnished:item.furnished, ac:item.ac, electricityincluded:item.electricityincluded,floor:item.floor, photo:item.photo})
+    const [itemData, setItemData] = useState({title:item.title, location:item.location, nearbyplace:item.nearbyplace, rent:item.rent, category:item.category, furnished:item.furnished, ac:item.ac, electricityincluded:item.electricityincluded, waterincluded:item.waterincluded,  floor:item.floor, photo:item.photo})
     const [newData, setNewData] = useState(itemData)
     const [available, setAvailable] = useState(item.available?true:false)
     const [deleteItem, setDeleteItem] = useState('Delete');
@@ -65,7 +65,7 @@ const AdminItem = ({ item }) => {
     const handleOnChange = (e)=>{
         e.preventDefault()
         setItemData({...itemData, [e.target.name]:e.target.value});
-        console.log(itemData)
+        // console.log(itemData)
     }
     const handleOnUploadImage = async (e) => {
         e.preventDefault();
@@ -218,6 +218,13 @@ const AdminItem = ({ item }) => {
                             <select onChange={handleOnChange} name="electricityincluded" className='border border-gray-400 w-full' id="">
                                 <option value="false">No</option>
                                 <option value="true">Yes</option>
+                            </select>
+                        </div>
+                        <div className="flex flex-col items-start my-1">
+                            <label htmlFor="">Water Included<span className=' text-red-400'>*</span> </label>
+                            <select onChange={handleOnChange} name="waterincluded" className='border border-gray-400 w-full' id="">
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
                             </select>
                         </div>
                     </div>

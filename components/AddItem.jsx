@@ -9,7 +9,7 @@ const AddItem = () => {
     const router = useRouter()
     const [adding, setAdding] = useState()
     const [uploading, setUploading] = useState()
-    const [item, setItem] = useState({ title: '', location: '', url: '', nearbyplace: '', rent: '', category: '1 BHK', furnished: 'false', electricityincluded: 'false', ac: 'false', floor: '1', photo: [], authtoken:'' })
+    const [item, setItem] = useState({ title: '', location: '', url: '', nearbyplace: '', rent: '', category: '1 BHK', furnished: 'false', electricityincluded: 'false', waterincluded:'true', ac: 'false', floor: '1', photo: [], authtoken:'' })
     let image = []
     useEffect(() => {
       if(typeof window!=='undefined')
@@ -147,6 +147,13 @@ const AddItem = () => {
                             <select onChange={handleOnChange} name="electricityincluded" className='border border-gray-400 w-full' id="">
                                 <option value="false">No</option>
                                 <option value="true">Yes</option>
+                            </select>
+                        </div>
+                        <div className="flex flex-col items-start my-1">
+                            <label htmlFor="">Water Included<span className=' text-red-400'>*</span> </label>
+                            <select onChange={handleOnChange} name="waterincluded" className='border border-gray-400 w-full' id="">
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
                             </select>
                         </div>
                     </div>

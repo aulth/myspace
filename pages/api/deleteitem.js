@@ -16,9 +16,7 @@ const deleteItem = async (req, res)=>{
         return res.json({success:false, msg:"Item id not provided"})
     }
     let user = jwt.verify(authtoken, JWTSECRET)
-    console.log(user)
     let item = await Item.findOne({_id:id})
-    console.log(item)
     if(item.user!=user.id){
         return res.json({success:false, msg:"You are not authorized to delete this item"})
     }
